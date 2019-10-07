@@ -1,7 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import LogIn from './src/Components/Views/Login';
-import SignUp from './src/Components/Views/Signup';
+// import Login from './src/Components/Store/index';
+// import {Login} from './src/Components/Store/index';
+// import SignUp from './src/Components/Views/Signup';
+import {Auth} from './src/Components/Store/index';
 
 import Home from './src/Components/Views/Home';
 import AddPost from './src/Components/Views/Admin/AddPost';
@@ -14,31 +16,30 @@ import { Navigation } from 'react-native-navigation';
 // Navigation.registerComponent('shopDaddy.SignUp', () => SignUp);
 // Navigation.registerComponent('shopDaddy.AddPost', () => AddPost);
 const store = ConfigedStored();
+
 Navigation.registerComponent(
   'shopDaddy.Home',
   () => props => (
     <Provider store={store}>
-      <Home {...props} />
+      <Home {...props} hello={'props to see if somethig shows'} />
     </Provider>
   ),
   () => Home
-  
 );
 Navigation.registerComponent(
-  'shopDaddy.Login',
+  'shopDaddy.Auth',
   () => props => (
     <Provider store={store}>
-      <LogIn  />
+      <Auth />
     </Provider>
   ),
-  () =>  LogIn
-  
+  () => Auth
 );
 Navigation.registerComponent(
   'shopDaddy.SignUp',
   () => props => (
     <Provider store={store}>
-      <SignUp  />
+      <SignUp />
     </Provider>
   ),
   () => SignUp
@@ -47,11 +48,10 @@ Navigation.registerComponent(
   'shopDaddy.AddPost',
   () => props => (
     <Provider store={store}>
-      <AddPost  />
+      <AddPost />
     </Provider>
   ),
-  () =>  AddPost
-  
+  () => AddPost
 );
 
 // export default () => Navigation.events().registerAppLaunchedListener(() => {
@@ -103,18 +103,19 @@ Navigation.registerComponent(
 //           }
 //         ]
 //       },
-     
+
 //     }
 //   });
 // });
-export default () => Navigation.events().registerAppLaunchedListener(() => {
+export default () =>
+  Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
       root: {
         component: {
-          name: 'shopDaddy.Login',
+          name: 'shopDaddy.Auth',
           options: {
             topBar: {
-              title: { text: 'Login', color: 'blue' }
+              title: { text: 'Welcome', color: 'blue' }
             }
           }
         }
@@ -132,8 +133,6 @@ export default () => Navigation.events().registerAppLaunchedListener(() => {
 //     }
 //  }
 // );
-
-
 
 // const styles = StyleSheet.create({
 //   container: {
