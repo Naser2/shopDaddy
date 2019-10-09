@@ -31,17 +31,20 @@ export default class Logo extends Component {
         easing: Easing.easeOutCubic
       })
     ]).start(() => {
-      console.log("Animation DOne!")
-     this.props.showLogin()
+      console.log('Animation DOne!');
+      this.props.showLogin();
     });
   }
   render() {
     return (
       <View>
-        <View style={ 
-          this.props.orientation === 'portrait' ? 
-           styles.logoStylesPortrait : styles.logoStylesLandscape
-        }>
+        <View
+          style={
+            this.props.orientation === 'portrait'
+              ? styles.logoStylesPortrait
+              : styles.logoStylesLandscape
+          }
+        >
           <Animated.View
             style={{
               opacity: this.state.sellAnim,
@@ -67,27 +70,34 @@ export default class Logo extends Component {
 }
 
 const styles = StyleSheet.create({
-  logoStylesPortrait:{
-    marginTop:50,
-    flex:1,
+  logoStylesPortrait: {
+    marginTop: 50,
+    flex: 1,
     flexDirection: 'row',
-    maxHeight:100
-},
-logoStylesLandscape:{
-    marginTop:20,
-    flex:1,
+    maxHeight: 100,
+    alignSelf: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.2
+  },
+  logoStylesLandscape: {
+    marginTop: 20,
+    flex: 1,
     flexDirection: 'row',
-    maxHeight:50
-},
+    maxHeight: 50,
+    alignSelf: 'center'
+  },
   logoStyle: {
     marginTop: 50,
 
     flex: 1,
     maxHeight: 100,
     // backgroundColor: '#FFF',
-    flexDirection: 'row'
+    // flexDirection: 'row',
     // alignItems: 'center'
-    // padding: 15
+    padding: 15
   },
   shop: {
     fontSize: 40,
