@@ -1,42 +1,59 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  ScrollView
-} from 'react-native';
+import { Platform, Button } from 'react-native';
 
 import Input from '../../../utils/forms/inputs';
-import SocialAuthBtns from './SocialAuthBtns';
-// import MyButton from '../../../HOCS/HOC_Base_Theme/components/Button';
+
+import Container from '../../../HOCS/HOC_Base_Theme/components/Container';
+import Content from '../../../HOCS/HOC_Base_Theme/components/Content';
+import Header from '../../../HOCS/HOC_Base_Theme/components/Header';
+import Title from '../../../HOCS/HOC_Base_Theme/components/Title';
+import Text from '../../../HOCS/HOC_Base_Theme/components/Text';
+import Icon from '../../../HOCS/HOC_Base_Theme/components/Icon';
+import Body from '../../../HOCS/HOC_Base_Theme/components/Body';
+import Left from '../../../HOCS/HOC_Base_Theme/components/Left';
+import Right from '../../../HOCS/HOC_Base_Theme/components/Right';
+import Item from '../../../HOCS/HOC_Base_Theme/components/Item';
+import Button2 from '../../../HOCS/HOC_Base_Theme/components/Button';
+import View from '../../../HOCS/HOC_Base_Theme/components/View';
+import styles2 from './styles';
+// import ValidationRules from '../../../../utils/forms/validationRules';
+import commonColor from '../../../HOCS/HOC_Base_Theme/variables/commonColor';
+import BackgroundImage from '../../../HOCS/HOC_Base_Theme/components/ImageAdHeader';
+import { deviceMeasures } from '../../../utils/misc';
+
+import {
+  StyleSheet,
+  // Text,
+  // View,
+  // Button,
+  TouchableOpacity
+  // ScrollView
+} from 'react-native';
 
 import ValidationRules from '../../../utils/forms/validationRules';
 import LoadTabs from '../Tabs/index';
 
-// import { requestLogin } from '../../store/action';
 import {
   getOrientation,
   setOrientationListener,
   removeOrientationListener
 } from '../../../utils/misc';
 
-// import { Colors, ImageHeader } from '../../../HocComponents/index.js';
 import inputTheme from '../../../HOCS/HOC_Base_Theme/components/Input';
 import Line from '../../../HOCS/HOC_Base_Theme/components/Line';
-// import { requestLogin,  } from '../../Store/Action/action';
-import { connect } from 'react-redux';
-// import { signUp, signIn } from '../../Store/actions/user_actions';
-import { bindActionCreators } from 'redux';
 
 import { setTokens } from '../../../utils/misc';
+import Image1 from '../../../../assets/images/what_do_you_want_delight_prompt_3.png';
+import Image2 from '../../../../assets/images/junko-tabeis-80th-birthday-4915579445051392-law.gif';
+import Image3 from '../../../../assets/images/we_madeit_or_404.png';
+import Logo from './Logo';
 
 class LoginForm extends Component {
   state = {
+    currentImgIndex: 0,
     type: 'Login',
     action: 'Login',
-    actionMode: "Don't have an account? Register",
+    actionMode: 'Please Login to continue',
     hasErrors: false,
     form: {
       email: {
@@ -56,17 +73,11 @@ class LoginForm extends Component {
           isRequired: true,
           minLength: 6
         }
-      },
-      confirmPassword: {
-        value: '',
-        valid: false,
-        type: 'textinput',
-        rules: {
-          confirmPass: 'password'
-        }
       }
     }
   };
+
+  images = [Image1, Image2, Image3];
 
   updateInput = (name, value) => {
     this.setState({
@@ -98,20 +109,14 @@ class LoginForm extends Component {
       />
     ) : null;
 
-  changeFormType = () => {
-    const type = this.state.type;
-    this.setState({
-      type: type === 'Login' ? 'Register' : 'Login',
-      action: type === 'Login' ? 'Register' : 'Login',
-      actionMode:
-        type === 'Login' ? ' Login' : "Don't have an account? Register"
-    });
-  };
-
   formHasErrors = () =>
     this.state.hasErrors ? (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorLabel}>Opps, check your info</Text>
+      <View
+        style={([styles.errorContainer], { marginBottom: 0, marginTop: 0 })}
+      >
+        <Text style={[styles.errorLabel, { paddingLeft: -4 }]}>
+          Opps, check your info
+        </Text>
       </View>
     ) : null;
 
@@ -131,7 +136,7 @@ class LoginForm extends Component {
     let formToSubmit = {};
     const formCopy = this.state.form;
 
-    const { requestLogin, registerUser } = this.props;
+    const { requestLogin } = this.props;
 
     for (let key in formCopy) {
       if (this.state.type === 'Login') {
@@ -154,16 +159,6 @@ class LoginForm extends Component {
         // this.props.signIn(formToSubmit).then(()=>{
         //     this.manageAccess()
         // })
-      } else {
-        let email = formToSubmit.email;
-        let password = formToSubmit.password;
-        // let  mobile = formToSubmit.password;
-        const data = [email, password];
-        console.log('ARRAY: ', data, 'Form ToSubmit: ', formToSubmit);
-        registerUser(formToSubmit);
-        // .then(()=>{
-        //     // this.manageAccess()
-        // })
       }
     } else {
       this.setState({
@@ -173,89 +168,165 @@ class LoginForm extends Component {
   };
 
   render() {
-    console.log('FUNC PROPS TYPE:', this.props.registerUser);
-    console.log('FUNC PROPS :', this.props);
+    console.log('Device Height: ', deviceMeasures('height'));
+
     return (
-      // <ScrollView>
-      <View style={styles.formInputContainer}>
-        <Input
-          style={inputTheme()}
-          placeholder="Enter your email"
-          type={this.state.form.email.type}
-          value={this.state.form.email.value}
-          onChangeText={value => this.updateInput('email', value)}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
-        />
-
-        <Input
-          style={inputTheme()}
-          placeholder="Enter your password"
-          type={this.state.form.password.type}
-          value={this.state.form.password.value}
-          onChangeText={value => this.updateInput('password', value)}
-          secureTextEntry
-        />
-
-        {this.confirmPassword()}
-        {this.formHasErrors()}
-
-        <View
+      <View
+        style={{ backgroundColor: '#ffff', width: '100%', flex: 1, padding: 0 }}
+      >
+        <Header
+          androidStatusBarColor={commonColor.statusBarLight}
           style={
-            this.props.platform === 'android'
-              ? styles.buttonStyleAndroid
-              : styles.buttonStyleIos
+            Platform.OS === 'ios' ? styles2.iosHeaderNoPadding : styles2.aHeader
           }
         >
-          <TouchableOpacity
-            style={{
-              // borderWidth: 0.5,
-              // borderColor: '#fd9727',
-              // borderBottomRightRadius: 10,
-              // borderBottomLeftRadius: 10,
-              // borderTopLeftRadius: 10,
-              // borderTopRightRadius: 10,
-              // backgroundColor: '#ffff',
-              alignSelf: 'center',
-              // width: '40%',
-              marginTop: '4%'
-            }}
-            title={this.state.action}
-            onPress={this.submitUser}
-          >
-            <Text style={styles.orangeText}>{this.state.action}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={
-            this.props.platform === 'android'
-              ? styles.buttonStyleAndroid
-              : styles.buttonStyleIos
-          }
-        >
-          <TouchableOpacity onPress={this.changeFormType}>
-            {/* title={'Hello'}
-            color="lightgrey" */}
-
-            <Text style={styles.changeForm}>{this.state.actionMode}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View>
-          <Button
-            title="I'll do it later"
-            color=" rgba(0,0,0,.54)"
-            onPress={() => LoadTabs(false)}
+          <Body>
+            <Title
+              style={
+                Platform.OS === 'ios'
+                  ? [styles2.iosHeaderTitleBoldBlack, styles2.black]
+                  : [, styles2.black]
+              }
+              title={'Sign In'}
+            >
+              Welcome
+            </Title>
+          </Body>
+        </Header>
+        <BackgroundImage
+          text={' Welcome to Shop Daddy'}
+          textStyle={{
+            flexWrap: 'wrap',
+            // fontWeight:
+            // width: '40%',
+            fontSize: 23,
+            color: 'rgb(157, 52, 227)',
+            marginTop: '30%',
+            elevation: 3,
+            fontFamily: 'RobotoCondensed-Bold'
+          }}
+          // textViewStyle={{
+          //   // alignItems: 'center',
+          //   marginTop: '33%',
+          //   // backgroundColor: '#ffffeb',
+          //   borderWidth: 1,
+          //   // borderRadius: 25,
+          //   height: 23,
+          //   alignSelf: 'flex-start',
+          //   // flexDirection: 'row',
+          //   // elevation: 2,
+          //   // shadowColor: '#000',
+          //   shadowOffset: { width: 0, height: 2 },
+          //   shadowOpacity: 0.2,
+          //   shadowRadius: 1.2,
+          //   alignItems: 'center',
+          //   // justifyContent: 'space-between',
+          //   borderColor: '#ffffeb'
+          // }}
+          background={{
+            height: deviceMeasures('height') / 2.8,
+            width: deviceMeasures('width'),
+            marginLeft: -10
+          }}
+          imgSrc={this.images}
+        />
+        <Logo showLogin={this.props.showLogin} />
+        <View style={{ marginTop: -12 }}>
+          <Line
+            style={{ backgroundColor: '#5d26de', height: 20, width: ' 120%' }}
           />
+          {/* <SocialAuthBtns /> */}
+          {/* <Line style={{ backgroundColor: '#5d26de', height: 2 }} /> */}
+        </View>
+        <View>
+          <Title
+            style={
+              Platform.OS === 'ios'
+                ? [
+                    styles2.iosHeaderTitleBold,
+                    styles2.sucsess,
+                    { marginTop: 20 }
+                  ]
+                : [styles2.aHeaderTitleBold, styles2.sucsess]
+            }
+            title={'Social Sign In'}
+          >
+            Login
+          </Title>
         </View>
 
-        <View style={{ marginTop: 5 }}>
-          <Line style={{ backgroundColor: '#1b8ffe', width: 1 }} />
-          <SocialAuthBtns />
+        <View style={styles.formInputContainer}>
+          <Input
+            style={inputTheme()}
+            placeholder="Enter your email"
+            type={this.state.form.email.type}
+            value={this.state.form.email.value}
+            onChangeText={value => this.updateInput('email', value)}
+            autoCapitalize={'none'}
+            keyboardType={'email-address'}
+          />
+
+          <Input
+            style={inputTheme()}
+            placeholder="Enter your password"
+            type={this.state.form.password.type}
+            value={this.state.form.password.value}
+            onChangeText={value => this.updateInput('password', value)}
+            secureTextEntry
+          />
+          {this.formHasErrors()}
+          <View
+            style={
+              this.props.platform === 'android'
+                ? styles.buttonStyleAndroid
+                : styles.buttonStyleIos
+            }
+          >
+            <TouchableOpacity
+              style={{
+                alignSelf: 'center',
+                marginTop: '6%',
+                backgroundColor: 'transparent',
+                // backgroundColor: '#007aff',
+                backgroundColor: '#007aff',
+                width: '70%',
+                height: 40,
+                borderBottomRightRadius: 20,
+                borderBottomLeftRadius: 20,
+                borderTopLeftRadius: 20,
+                borderTopRightRadius: 20,
+                borderRadius: 23,
+                borderWidth: 1,
+                borderColor: 'blue',
+                alignContent: 'center'
+              }}
+              title={this.state.action}
+              onPress={this.submitUser}
+            >
+              <Text
+                style={{
+                  color: '#FFFF',
+                  fontFamily: 'Roboto-Medium',
+                  textAlign: 'center',
+                  fontSize: 20,
+                  alignSelf: 'center',
+                  padding: 8
+                }}
+              >
+                {this.state.action}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <Button
+              title="I'll do it later"
+              color=" rgba(0,0,0,.54)"
+              onPress={() => LoadTabs(false)}
+            />
+          </View>
         </View>
       </View>
-      // </ScrollView>
     );
   }
 }
@@ -264,7 +335,7 @@ const styles = StyleSheet.create({
   formInputContainer: {
     // width:360,
     minHeight: 400,
-    marginTop: 5,
+    marginTop: 0,
     marginLeft: '8%',
     marginRight: '8%'
   },
@@ -322,15 +393,4 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps(state) {
-  return {
-    User: state.User
-  };
-}
-
-// function mapDispatchToProps(dispatch){
-// return bindActionCreators({signUp,signIn},dispatch)
-// }
-
-// export default connect(mapStateToProps,mapDispatchToProps)(LoginForm)
 export default LoginForm;
