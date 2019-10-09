@@ -20,6 +20,56 @@ export default {
     fontWeight: '500',
     color: commonColor.brandPrimary
   },
+  iosHeaderTitleBold: {
+    // fontSize: 18,
+    fontWeight: '600',
+    color: commonColor.brandPrimary,
+
+    /* color: #1d1d1f; */
+    // -webkit-transition: color 0.5s cubic-bezier(0.28, 0.11, 0.32, 1);
+    // transition: 'color 0.5s cubic-bezier(0.28, 0.11, 0.32, 1)',
+
+    fontSize: 30,
+    letterSpacing: 1.57
+    // lineHeight: 1.14286,
+    // fontFamily: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    // text-decoration: none;
+    // whitepace: nowrap;
+  },
+  aHeaderTitleBold: {
+    // fontSize: 18,
+    lineHeight: 26,
+    marginTop: -5,
+    color: commonColor.brandPrimary,
+
+    fontWeight: '600',
+    color: commonColor.brandPrimary,
+
+    /* color: #1d1d1f; */
+    // -webkit-transition: color 0.5s cubic-bezier(0.28, 0.11, 0.32, 1);
+    // transition: 'color 0.5s cubic-bezier(0.28, 0.11, 0.32, 1)',
+
+    fontSize: 20,
+    letterSpacing: 1.57
+    // lineHeight: 1.14286,
+  },
+  iosHeaderTitleBoldBlack: {
+    // fontSize: 18,
+    lineHeight: 26,
+    marginTop: -5,
+    color: commonColor.brandAppleBlack,
+    fontWeight: '600',
+    color: commonColor.brandPrimary,
+    fontSize: 18,
+    letterSpacing: 1.57
+  },
+  sucsess: {
+    color: commonColor.brandSuccess,
+  
+  },
+  black: {
+    color: commonColor.brandAppleBlack,
+  },
   aHeaderTitle: {
     fontSize: 18,
     fontWeight: '500',
@@ -182,6 +232,11 @@ export default {
   },
   iosHeader: {
     backgroundColor: '#fff'
+  },
+  iosHeaderNoPadding: {
+    backgroundColor: '#fff',
+    width:deviceWidth,
+    alignSelf: 'center',
   },
   aHeader: {
     backgroundColor: '#fff',
