@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Input from '../../../utils/forms/inputs';
 import Logo from './Logo';
+import LoginForm from './LoginForm';
 
 import ValidationRules from '../../../utils/forms/validationRules';
 import LoadTabs from '../Tabs/index';
@@ -147,7 +148,6 @@ class LoginIndex extends Component {
     });
   };
 
-
   componentDidMount() {
     console.log('LOGIN PROPS:', this.props);
     console.log('FORM HAS ERRORS FUNC:', getOrientation(500));
@@ -179,19 +179,30 @@ class LoginIndex extends Component {
   }
 
   render() {
-    
     console.log('INDEX PROPS Render:', this.props);
 
     console.log('PROPS INDEX', this.props);
     return (
       <View style={styles.container}>
-        <Logo orientation={this.state.orientation} showLogin={this.showLogin} />
+        {/* <LoginForm requestLogin={this.props.requestLogin}  showLogin={this.showLogin} /> */}
+        {this.props.isRegisteredSuccess ? (
+          <LoginForm requestLogin={this.props.requestLogin} />
+        ) : (
+          <View>
+            <Logo
+              orientation={this.state.orientation}
+              showLogin={this.showLogin}
+            />
 
-        <LoginPannel requestLogin={this.props.requestLogin} registerUser={this.props.registerUser}
-        
-          show={this.state.logoAnimation}
-          orientation={this.state.orientation}
-        />
+            <LoginPannel
+              requestLogin={this.props.requestLogin}
+              registerUser={this.props.registerUser}
+              show={this.state.logoAnimation}
+              orientation={this.state.orientation}
+              showLogin={this.showLogin}
+            />
+          </View>
+        )}
       </View>
     );
   }
@@ -201,7 +212,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    alignItems: 'center',
+    alignItems: 'center'
     // padding: 15
     // marginTop: 25
   },
