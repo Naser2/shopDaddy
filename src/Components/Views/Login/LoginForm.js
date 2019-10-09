@@ -43,9 +43,21 @@ import inputTheme from '../../../HOCS/HOC_Base_Theme/components/Input';
 import Line from '../../../HOCS/HOC_Base_Theme/components/Line';
 
 import { setTokens } from '../../../utils/misc';
-import Image1 from '../../../../assets/images/what_do_you_want_delight_prompt_3.png';
+
 import Image2 from '../../../../assets/images/junko-tabeis-80th-birthday-4915579445051392-law.gif';
-import Image3 from '../../../../assets/images/we_madeit_or_404.png';
+
+import Image1 from '../../../../assets/images/hey_life_is_good.png';
+import Image3 from '../../../../assets/images/gold_fish_printing_receipts_beautifull.gif';
+import Image12 from '../../../../assets/images/take_payments_like_pro.gif';
+import Image9 from '../../../../assets/images/junko-tabeis-80th-birthday-4915579445051392-law.gif';
+import Image4 from '../../../../assets/images/happy_delivery_guy_found.png';
+import Image5 from '../../../../assets/images/make_money_from_home.gif';
+import Image6 from '../../../../assets/images/street_vendor_beautiful.gif';
+import Image7 from '../../../../assets/images/money_fish.gif';
+import Image8 from '../../../../assets/images/what_do_you_want_delight_prompt_3.png';
+import Image11 from '../../../../assets/images/welcome.gif';
+
+import Image10 from '../../../../assets/images/we_madeit_or_404.png';
 import Logo from './Logo';
 
 class LoginForm extends Component {
@@ -77,7 +89,21 @@ class LoginForm extends Component {
     }
   };
 
-  images = [Image1, Image2, Image3];
+  images = [Image1, Image2, Image3 ,      Image6,  Image5,
+  
+    Image11 ,
+    // Image1,
+    Image12,
+
+    Image7,
+    Image4,
+    Image8,
+    Image9,
+  
+    Image10,
+    Image1,
+      // Image3,
+    ];
 
   updateInput = (name, value) => {
     this.setState({
@@ -226,6 +252,7 @@ class LoginForm extends Component {
           background={{
             height: deviceMeasures('height') / 2.8,
             width: deviceMeasures('width'),
+         
             marginLeft: -10
           }}
           imgSrc={this.images}

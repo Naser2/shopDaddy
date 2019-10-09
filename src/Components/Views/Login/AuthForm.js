@@ -271,7 +271,6 @@ const styles = StyleSheet.create({
   formInputContainer: {
     // width:360,
     minHeight: 400,
-    marginTop: 5,
     marginLeft: '8%',
     marginRight: '8%'
   },
