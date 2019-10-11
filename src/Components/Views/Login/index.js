@@ -184,9 +184,19 @@ class LoginIndex extends Component {
     console.log('PROPS INDEX', this.props);
     return (
       <View style={styles.container}>
-        {/* <LoginForm requestLogin={this.props.requestLogin}  showLogin={this.showLogin} /> */}
+        {/* <LoginForm
+            requestLogin={this.props.requestLogin}
+            showLogin={this.showLogin}
+          /> */}
+        {/* <LoginForm
+          requestLogin={this.props.requestLogin}
+          showLogin={this.showLogin}
+        /> */}
         {this.props.isRegisteredSuccess ? (
-          <LoginForm requestLogin={this.props.requestLogin}   showLogin={this.showLogin}/>
+          <LoginForm
+            requestLogin={this.props.requestLogin}
+            showLogin={this.showLogin}
+          />
         ) : (
           <View>
             <Logo
