@@ -65,11 +65,11 @@ function isRequestRegisterSuccess(state, user) {
     loaded: true,
     error: false,
     errorMessage: '',
-    user: {
-      uid: action.payload.localId || false,
-      token: action.payload.idToken || false,
-      refToken: action.payload.refreshToken || false
-    },
+    // user: {
+    //   uid: action.payload.localId || false,
+    //   token: action.payload.idToken || false,
+    //   refToken: action.payload.refreshToken || false
+    // },
     isAuthenticated: false,
     isRegisteredSuccess: true
   };
