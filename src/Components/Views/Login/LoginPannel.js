@@ -33,9 +33,11 @@ class LoginPanel extends Component {
     inputForm: new Animated.Value(0)
   };
 
-  images = [     Image5,  Image6, 
-  
-    Image11 ,
+  images = [
+    Image5,
+    Image6,
+
+    Image11,
     Image1,
     Image12,
     Image2,
@@ -43,10 +45,10 @@ class LoginPanel extends Component {
     Image4,
     Image8,
     Image9,
-  
+
     Image10,
     Image1,
-      Image3,
+    Image3
   ];
   componentWillReceiveProps(nextProps) {
     console.log('nextPPPPops', nextProps);
@@ -73,20 +75,16 @@ class LoginPanel extends Component {
     console.log('Image 1:', Image1);
     console.log('Panne animation finished? :', this.state.animFinished);
     return (
-      <ScrollView style={{ marginTop: '-6%' }}>
+      <ScrollView
+        style={
+          this.props.orientation === 'portrait'
+            ? { marginTop: '-10%' }
+            : { marginTop: 0 }
+        }
+      >
         {this.state.animFinished ? (
           <>
             <BackgroundImage
-              // text={' Welcome to Shop Daddy'}
-              // textStyle={{
-              //   flexWrap: 'wrap',
-              //   fontSize: 18,
-              //   color: 'rgb(157, 52, 227)',
-              //   marginTop: '0%',
-              //   elevation: 2,
-              //   fontFamily: 'RobotoCondensed-Bold',
-              //   justifyContent: 'flex-start'
-              // }}
               background={
                 this.props.orientation === 'portrait'
                   ? styles.imageStylePortrait
@@ -101,7 +99,8 @@ class LoginPanel extends Component {
               // }}
               imgSrc={this.images}
             />
-            <View style={{ marginTop: '4%' }}>
+
+            <View style={{ marginTop: '8%' }}>
               <Text style={{ color: 'purple' }}>WELCOME TO SHOPDDY</Text>
             </View>
             <AuthForm
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
   imageStylePortrait: {
     width: 370,
     width: deviceMeasures('width') - 1,
-    height: 150
+    height: 165
   },
   imageStyleLandscape: {
     width: 370,
