@@ -184,14 +184,14 @@ class LoginIndex extends Component {
     console.log('PROPS INDEX', this.props);
     return (
       <View style={styles.container}>
-        {/* <LoginForm
+        <LoginForm
             requestLogin={this.props.requestLogin}
             showLogin={this.showLogin}
-          /> */}
+          />
         {/* <LoginForm
           requestLogin={this.props.requestLogin}
           showLogin={this.showLogin}
-        /> */}
+        />
         {this.props.isRegisteredSuccess ? (
           <LoginForm
             requestLogin={this.props.requestLogin}
@@ -212,7 +212,7 @@ class LoginIndex extends Component {
               showLogin={this.showLogin}
             />
           </View>
-        )}
+        )} */}
       </View>
     );
   }
@@ -222,7 +222,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center'
     // padding: 15
     // marginTop: 25
   },
