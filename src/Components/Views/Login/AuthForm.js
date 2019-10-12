@@ -5,34 +5,27 @@ import {
   View,
   Button,
   TouchableOpacity,
-  ScrollView
+  Platform
 } from 'react-native';
 
 import Input from '../../../utils/forms/inputs';
 import SocialAuthBtns from './SocialAuthBtns';
-// import MyButton from '../../../HOCS/HOC_Base_Theme/components/Button';
-
 import ValidationRules from '../../../utils/forms/validationRules';
 import LoadTabs from '../Tabs/index';
-
-// import { requestLogin } from '../../store/action';
 import {
   getOrientation,
   setOrientationListener,
   removeOrientationListener
 } from '../../../utils/misc';
-
-// import { Colors, ImageHeader } from '../../../HocComponents/index.js';
 import inputTheme from '../../../HOCS/HOC_Base_Theme/components/Input';
 import Line from '../../../HOCS/HOC_Base_Theme/components/Line';
-// import { requestLogin,  } from '../../Store/Action/action';
 import { connect } from 'react-redux';
-// import { signUp, signIn } from '../../Store/actions/user_actions';
 import { bindActionCreators } from 'redux';
-// import Line from '../../../HOCS/HOC_Base_Theme/components/Line';
 
 import { setTokens } from '../../../utils/misc';
 import Logo from './Logo';
+import styles2 from './styles';
+import { deviceMeasures } from '../../../utils/misc';
 
 class AuthForm extends Component {
   state = {
@@ -179,87 +172,226 @@ class AuthForm extends Component {
     console.log('FUNC PROPS :', this.props);
     return (
       // <ScrollView>
+
       <View style={styles.formInputContainer}>
-        {/* <Logo
-          orientation={this.props.orientation}
-          showLogin={this.props.showLogin}
-        /> */}
-        <Input
-          style={inputTheme()}
-          placeholder="Enter your email"
-          type={this.state.form.email.type}
-          value={this.state.form.email.value}
-          onChangeText={value => this.updateInput('email', value)}
-          autoCapitalize={'none'}
-          keyboardType={'email-address'}
+        <Line
+          style={{
+            backgroundColor: '#1b8ffe', // deep blue
+            // backgroundColor: 'rgb(197,196,140)',
+            height: 13,
+            width: deviceMeasures('width'),
+            marginTop: Platform.OS === 'ios' ? -30 : 0
+          }}
         />
-
-        <Input
-          style={inputTheme()}
-          placeholder="Enter your password"
-          type={this.state.form.password.type}
-          value={this.state.form.password.value}
-          onChangeText={value => this.updateInput('password', value)}
-          secureTextEntry
-        />
-
-        {this.confirmPassword()}
-        {this.formHasErrors()}
 
         <View
-          style={
-            this.props.platform === 'android'
-              ? styles.buttonStyleAndroid
-              : styles.buttonStyleIos
-          }
+          style={{
+            width: deviceMeasures('width'),
+            alignSelf: 'center',
+            marginTop: Platform.OS === 'ios' ? 0 : 0
+
+            // backgroundColor: 'purple'
+          }}
         >
-          <TouchableOpacity
+          <View
             style={{
-              // borderWidth: 0.5,
-              // borderColor: '#fd9727',
-              // borderBottomRightRadius: 10,
-              // borderBottomLeftRadius: 10,
-              // borderTopLeftRadius: 10,
-              // borderTopRightRadius: 10,
-              // backgroundColor: '#ffff',
+              height: 54,
+              width: deviceMeasures('width'),
               alignSelf: 'center',
-              // width: '40%',
-              marginTop: '4%'
+              // paddinTop: Platform.OS === 'ios' ? 20 : 10,
+              // paddinBottom: Platform.OS === 'ios' ?20 : 10
+              // backgroundColor: 'rgb(218,219,201)',
+              // backgroundColor: '#dff0ff'
+              // backgroundColor: 'rgb(227,15,126)'
+              backgroundColor: 'purple'
             }}
-            title={this.state.action}
-            onPress={this.submitUser}
           >
-            <Text style={styles.orangeText}>{this.state.action}</Text>
-          </TouchableOpacity>
-        </View>
+            <Text
+              style={
+                Platform.OS === 'ios'
+                  ? [
+                      styles2.iosHeaderTitleBold,
+                      styles2.sucsess,
+                      {
+                        // color: '#FFFF',
+                        fontSize: 34,
+                        fontFamily: 'RobotoCondensed-Bold',
+                        fontWeight: 600,
+                        textAlign: 'center',
+                        paddingTop: 7,
+                        paddingLeft: 7,
+                        paddingRight: 7,
+                        elevation: 10,
+                        shadowColor: '#000',
+                        // shadowColor: 'orange',
+                        shadowOffset: { width: 5, height: 2 },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 1.2
+                      }
+                    ]
+                  : [
+                      styles2.aHeaderTitleBold,
+                      styles2.sucsess,
+                      {
+                        elevation: 2,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 2 },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 1.2
+                      }
+                    ]
+              }
+              title={'Social Sign In'}
+            >
+              Welcome
+            </Text>
+            <Line
+              style={{
+                // marginTop:-2,
+                // backgroundColor: '#dff0ff',
+                backgroundColor: '#fff',
+                height: 0.5,
+                width: deviceMeasures('width') / 3
+              }}
+            />
+          </View>
+          <View>
+            <Line
+              style={{
+                // backgroundColor: 'green',
+                backgroundColor: '#40a1f6',
+                height: 20,
+                width: deviceMeasures('width')
+              }}
+            />
+            <Line
+              style={{
+                backgroundColor: '#d7e5f1',
+                height: 1,
 
-        <View
-          style={
-            this.props.platform === 'android'
-              ? styles.buttonStyleAndroid
-              : styles.buttonStyleIos
-          }
-        >
-          <TouchableOpacity onPress={this.changeFormType}>
-            {/* title={'Hello'}
-            color="lightgrey" */}
+                width: deviceMeasures('width')
+              }}
+            />
+            <Line
+              style={{
+                backgroundColor: '#ae93ed',
+                height: 10,
 
-            <Text style={styles.changeForm}>{this.state.actionMode}</Text>
-          </TouchableOpacity>
-        </View>
+                width: deviceMeasures('width')
+              }}
+            />
+          </View>
+          <Line
+            style={{
+              backgroundColor: '#d7e5f1',
+              height: 6,
 
-        <View style={{marginBottom:16}}>
-          <Button
-            title="I'll do it later"
-            color=" rgba(0,0,0,.54)"
-            onPress={() => LoadTabs(false)}
+              width: deviceMeasures('width')
+            }}
           />
         </View>
 
-        <View style={{ marginTop: 0 }}>
-          <Line style={{ backgroundColor: '#1b8ffe', height: 2 }} />
-          <SocialAuthBtns />
-          <Line style={{ backgroundColor: '#5d26de', height: 2 }} />
+        <View style={{ marginTop: 15 }}>
+          <Text
+            style={[
+              styles.changeForm,
+              {
+                marginBottom: 0,
+                marginTop: 0,
+                fontFamily: 'RobotoCondensed-Bold',
+                fontWeight: 500,
+                fontSize: 25,
+                color: 'black',
+                shadowColor: 'lightblue',
+
+                bottom: 0,
+                lineHeight: 0,
+                shadowOffset: { width: 0.5, height: 2 },
+                shadowOpacity: 0.5
+              }
+            ]}
+          >
+            {this.state.action}
+          </Text>
+        </View>
+        <View style={{ marginTop: 30 }}>
+          <Input
+            style={inputTheme()}
+            placeholder="Enter your email"
+            type={this.state.form.email.type}
+            value={this.state.form.email.value}
+            onChangeText={value => this.updateInput('email', value)}
+            autoCapitalize={'none'}
+            keyboardType={'email-address'}
+          />
+
+          <Input
+            style={inputTheme()}
+            placeholder="Enter your password"
+            type={this.state.form.password.type}
+            value={this.state.form.password.value}
+            onChangeText={value => this.updateInput('password', value)}
+            secureTextEntry
+          />
+
+          {this.confirmPassword()}
+          {this.formHasErrors()}
+
+          <View
+            style={
+              this.props.platform === 'android'
+                ? styles.buttonStyleAndroid
+                : styles.buttonStyleIos
+            }
+          >
+            <TouchableOpacity
+              style={{
+                // borderWidth: 0.5,
+                // borderColor: '#fd9727',
+                // borderBottomRightRadius: 10,
+                // borderBottomLeftRadius: 10,
+                // borderTopLeftRadius: 10,
+                // borderTopRightRadius: 10,
+                // backgroundColor: '#ffff',
+                alignSelf: 'center',
+                // width: '40%',
+                marginTop: '4%'
+              }}
+              title={this.state.action}
+              onPress={this.submitUser}
+            >
+              <Text style={styles.orangeText}>{this.state.action}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={
+              this.props.platform === 'android'
+                ? styles.buttonStyleAndroid
+                : styles.buttonStyleIos
+            }
+          >
+            <TouchableOpacity onPress={this.changeFormType}>
+              {/* title={'Hello'}
+            color="lightgrey" */}
+
+              <Text style={styles.changeForm}>{this.state.actionMode}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ marginBottom: 10 }}>
+            <Button
+              title="I'll do it later"
+              color=" rgba(0,0,0,.54)"
+              onPress={() => LoadTabs(false)}
+            />
+          </View>
+
+          <View style={{ marginTop: 0 }}>
+            <Line style={{ backgroundColor: '#1b8ffe', height: 2 }} />
+            <SocialAuthBtns />
+            <Line style={{ backgroundColor: '#5d26de', height: 2 }} />
+          </View>
         </View>
       </View>
       // </ScrollView>
@@ -272,7 +404,8 @@ const styles = StyleSheet.create({
     // width:360,
     minHeight: 400,
     marginLeft: '8%',
-    marginRight: '8%'
+    marginRight: '8%',
+    marginTop: '0%'
   },
   buttonStyleAndroid: {
     marginBottom: 10,
