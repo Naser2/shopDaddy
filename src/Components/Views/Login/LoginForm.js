@@ -89,9 +89,14 @@ class LoginForm extends Component {
     }
   };
 
-  images = [Image1, Image2, Image3 ,      Image6,  Image5,
-  
-    Image11 ,
+  images = [
+    Image1,
+    Image2,
+    Image3,
+    Image6,
+    Image5,
+
+    Image11,
     // Image1,
     Image12,
 
@@ -99,11 +104,11 @@ class LoginForm extends Component {
     Image4,
     Image8,
     Image9,
-  
+
     Image10,
-    Image1,
-      // Image3,
-    ];
+    Image1
+    // Image3,
+  ];
 
   updateInput = (name, value) => {
     this.setState({
@@ -122,18 +127,6 @@ class LoginForm extends Component {
       form: formCopy
     });
   };
-
-  confirmPassword = () =>
-    this.state.type != 'Login' ? (
-      <Input
-        style={inputTheme()}
-        placeholder="Confirm your password"
-        type={this.state.form.confirmPassword.type}
-        value={this.state.form.confirmPassword.value}
-        onChangeText={value => this.updateInput('confirmPassword', value)}
-        secureTextEntry
-      />
-    ) : null;
 
   formHasErrors = () =>
     this.state.hasErrors ? (
@@ -215,50 +208,36 @@ class LoginForm extends Component {
               }
               title={'Sign In'}
             >
-              Welcome
+              Login
             </Title>
           </Body>
         </Header>
+        <Logo showLogin={this.props.showLogin} />
         <BackgroundImage
-          text={' Welcome to Shop Daddy'}
-          textStyle={{
-            flexWrap: 'wrap',
-            // fontWeight:
-            // width: '40%',
-            fontSize: 23,
-            color: 'rgb(157, 52, 227)',
-            marginTop: '30%',
-            elevation: 3,
-            fontFamily: 'RobotoCondensed-Bold'
-          }}
-          // textViewStyle={{
-          //   // alignItems: 'center',
-          //   marginTop: '33%',
-          //   // backgroundColor: '#ffffeb',
-          //   borderWidth: 1,
-          //   // borderRadius: 25,
-          //   height: 23,
-          //   alignSelf: 'flex-start',
-          //   // flexDirection: 'row',
-          //   // elevation: 2,
-          //   // shadowColor: '#000',
-          //   shadowOffset: { width: 0, height: 2 },
-          //   shadowOpacity: 0.2,
-          //   shadowRadius: 1.2,
-          //   alignItems: 'center',
-          //   // justifyContent: 'space-between',
-          //   borderColor: '#ffffeb'
-          // }}
-          background={{
-            height: deviceMeasures('height') / 2.8,
-            width: deviceMeasures('width'),
-         
-            marginLeft: -10
-          }}
+          background={
+            this.props.orientation === 'portrait'
+              ? styles.imageStylePortrait
+              : styles.imageStyleLandscape
+            // marginLeft: -50
+          }
           imgSrc={this.images}
         />
-        <Logo showLogin={this.props.showLogin} />
-        <View style={{ marginTop: -12 }}>
+        <Line style={{ backgroundColor: '#dff0ff' }} />
+        <View style={{ marginTop: '0%', width: deviceMeasures('width') }}>
+          <Text
+            style={{
+              color: ' rgb(53, 120, 229)',
+              backgroundColor: 'rgb(236, 243, 255)',
+              fontSize: 16,
+              fontWeight: 400,
+              fontFamily: 'RobotoCondensed-Bold',
+              padding: 10
+            }}
+          >
+            Loging and shop like a shop daddy!
+          </Text>
+        </View>
+        <View style={{ marginTop: -20 }}>
           <Line
             style={{ backgroundColor: '#5d26de', height: 20, width: ' 120%' }}
           />
@@ -272,7 +251,7 @@ class LoginForm extends Component {
                 ? [
                     styles2.iosHeaderTitleBold,
                     styles2.sucsess,
-                    { marginTop: 20 }
+                    { marginTop: 10 }
                   ]
                 : [styles2.aHeaderTitleBold, styles2.sucsess]
             }
@@ -365,6 +344,19 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginLeft: '8%',
     marginRight: '8%'
+  },
+  imageStylePortrait: {
+    width: 370,
+    width: deviceMeasures('width') ,
+    // height: 300
+    height: deviceMeasures('height'),
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center'
+  },
+  imageStyleLandscape: {
+    width: 370,
+    height: 100
   },
   buttonStyleAndroid: {
     marginBottom: 10,
