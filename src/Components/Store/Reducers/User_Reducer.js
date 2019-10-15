@@ -13,7 +13,7 @@ import {
   DELETE_USER_POST,
   AUTH_AUTO_LOGIN,
   AUTH_AUTO_LOGIN_SUCCESS,
-  AUTH_AUTO_LOGIN_FAIL,
+  AUTH_AUTO_LOGIN_FAIL
 } from '../Action/actionTypes';
 import { TOKEN_KEY } from '../../../utils/constants';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -65,6 +65,12 @@ function isRequestRegisterSuccess(state, user) {
     loaded: true,
     error: false,
     errorMessage: '',
+    // user,
+    user: {
+      uid: user.localId,
+      token: user.idToken,
+      refToken: user.refreshToken
+    },
     // user: {
     //   uid: action.payload.localId || false,
     //   token: action.payload.idToken || false,
@@ -129,28 +135,28 @@ function logout(state) {
 function authReducer(state = initialState, action) {
   // console.log('REDUCER - Action type: ', action && action.type);
   switch (action.type) {
-//LOGIN
+    //LOGIN
     case AUTH_LOGIN:
       return isRequest(state);
     case AUTH_LOGIN_SUCCESS:
       return isRequesLogintSuccess(state, action.user);
     case AUTH_LOGIN_FAILED:
       return isRequestFailed(state, action);
-//REGISTER
+    //REGISTER
     case AUTH_REGISTER:
       return isRequest(state);
     case AUTH_REGISTER_SUCCESS:
       return isRequestRegisterSuccess(state, action.user);
     case AUTH_REGISTER_FAILED:
       return isRequestFailed(state, action);
-//LOGIN
+    //LOGIN
     case AUTH_AUTO_LOGIN:
       return isRequesAutoLogin(state, action);
     case AUTH_AUTO_LOGIN_SUCCESS:
       return isRequesAutoLoginSuccess(state, action);
     case AUTH_AUTO_LOGIN_FAIL:
       return isRequesAutoLoginFail(state, action);
-//AUTH CHECK
+    //AUTH CHECK
     case AUTH_CHECK:
       return checkAuth(state);
     case LOGOUT_USER:

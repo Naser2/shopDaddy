@@ -11,9 +11,10 @@ import {
   AUTH_REGISTER_FAILED
 } from './actionTypes';
 import { TOKEN_KEY } from '../../../utils/constants';
-
+import axios from 'axios';
 import { setToken } from '../../../utils/misc';
 import { Navigation } from 'react-native-navigation/lib/dist/Navigation';
+import { SIGNUP } from '../../../utils/misc';
 
 function authCheck() {
   return dispatch => dispatch({ type: AUTH_CHECK });
@@ -83,16 +84,32 @@ function requestLogin(credentials) {
 }
 
 function registerUser(credentials) {
+  console.log("CRED :", credentials)
   // const email = credentials[0];
   // const password = credentials[1];
   console.log('Got Here Register Dispatch: ', credentials);
   return dispatch => {
     dispatch({ type: AUTH_REGISTER });
-    return Api.registerUser(credentials)
+    // return Api.registerUser(credentials)
+    return (request = axios({
+      method: 'POST',
+      url: SIGNUP,
+      data: {
+        email: credentials.email,
+        password: credentials.password,
+        returnSecureToken: true
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+      //  return request( 'POST', {
+      //   body: JSON.stringify({ user: credentials })
+      // });
+    })
       .then(res => {
         console.log('REGISTER RESPONSE: ', res);
-        console.log('RESPONSE USER ID: ', res.user_id);
-        let user = res.user_id;
+        console.log('RESPONSE Data: ', res.data);
+        let user = res.data;
         // dispatch(loginUser(res.token));
         dispatch({ type: AUTH_REGISTER_SUCCESS, user });
         // navigation.push({
@@ -106,7 +123,7 @@ function registerUser(credentials) {
           type: AUTH_REGISTER_FAILED,
           message: err.body ? err.body.message : 'Could Not Register'
         });
-      });
+      }));
   };
 }
 
