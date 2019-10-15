@@ -340,19 +340,23 @@ class LoginForm extends Component {
 const styles = StyleSheet.create({
   formInputContainer: {
     // width:360,
-    minHeight: 400,
+    minHeight: 200,
     marginTop: 0,
     marginLeft: '8%',
     marginRight: '8%'
   },
   imageStylePortrait: {
     width: 370,
-    width: deviceMeasures('width') ,
-    // height: 300
-    height: deviceMeasures('height'),
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignSelf: 'center'
+    width: deviceMeasures('width') - 1,
+    height: 5
+    // flex: 1,
+    // // width: 370,
+    // width: deviceMeasures('width'),
+    // height: 600,
+    // // height: deviceMeasures('height'),
+    // // justifyContent: 'center',
+    // // alignContent: 'center',
+    // // alignSelf: 'center'
   },
   imageStyleLandscape: {
     width: 370,

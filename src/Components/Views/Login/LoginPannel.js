@@ -72,7 +72,7 @@ class LoginPanel extends Component {
       ' PROPS  PANNEL isRegisteredSuccess::',
       this.props.isRegisteredSuccess
     );
-    console.log('Image 1:', Image1);
+    console.log('DEVICE WIDTH :', deviceMeasures('width') - 1);
     console.log('Panne animation finished? :', this.state.animFinished);
     return (
       <ScrollView
@@ -100,15 +100,15 @@ class LoginPanel extends Component {
               imgSrc={this.images}
             />
 
-            <View style={{ marginTop: '8%' }}>
-              <Text style={{ color: 'purple' }}>WELCOME TO SHOPDDY</Text>
-            </View>
-            <AuthForm
-              registerUser={this.props.registerUser}
-              requestLogin={this.props.requestLogin}
-              platform={this.props.platform}
-              showLogin={this.props.showLogin}
-            />
+            {/* <View style={{ flex: 1, marginTop: '1%' }}> */}
+              {/* <Text style={{ color: 'purple' }}>WELCOME TO SHOPDDY</Text> */}
+              <AuthForm
+                registerUser={this.props.registerUser}
+                requestLogin={this.props.requestLogin}
+                platform={this.props.platform}
+                showLogin={this.props.showLogin}
+              />
+            {/* </View> */}
           </>
         ) : (
           <>
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   imageStylePortrait: {
     width: 370,
     width: deviceMeasures('width') - 1,
-    height: 165
+    height: 170
   },
   imageStyleLandscape: {
     width: 370,
