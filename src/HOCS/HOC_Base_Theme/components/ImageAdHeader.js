@@ -20,7 +20,6 @@ export default class ImageAdHeader extends Component {
     }
   }
 
-  // console.log('IMAGE: ', props.imgSrc);
   // console.log('IMAGE BCKG: ', props.background);
   // // console.log('Text: ', props.text);
 
@@ -28,13 +27,27 @@ export default class ImageAdHeader extends Component {
     const { imgSrc } = this.props; // image
     const { currentImgIndex } = this.state; //index
     const currentImg = Array.isArray(imgSrc) ? imgSrc[currentImgIndex] : imgSrc; // imagesArray ? img=array[stateImgIdx] : img= props.img
+    console.log(
+      'IMAGE STYLE Props: ',
+      this.props.background,
+      'LOCAL BACKGROUND: ',
+      styles.background
+    );
+    console.log(
+      'IMAGE FINAL STYLE : ',
+      this.props.background
+        ? [this.props.background, styles.background]
+        : styles.background
+    );
     return (
       <>
         <ImageBackground
           accessibilityRole={'image'}
           source={currentImg}
           style={
-            this.props.background ? this.props.background : styles.background
+            this.props.background
+              ? [this.props.background, styles.background]
+              : styles.background
           }
           imageStyle={styles.logo}
         >
@@ -68,8 +81,8 @@ const styles = StyleSheet.create({
     // marginLeft: -60,
     paddingHorizontal: 32,
     // backgroundColor: Colors.lighter,
-    width: 400,
-    height: 100
+    // width: 400,
+    // height: 50
   },
   text: {
     fontSize: 34,
