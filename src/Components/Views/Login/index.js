@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { deviceMeasures } from '../../../utils/misc';
 import {
   View,
   Text,
@@ -6,27 +7,58 @@ import {
   Platform,
   TouchableOpacity,
   ScrollView,
-  TextInput
+  TextInput,
+  ActivityIndicator
 } from 'react-native';
+import Loader from '../../../../assets/images/colorful_loader.gif';
+import Coffee from '../../../../assets/images/holding_coffee_profile_bnice.png';
+import StaticLogo from '../../../../assets/StaticLogo/StaticLogo';
+
+import Image1 from '../../../../assets/images/dancing_old_man/dacing_old_man1.png';
+import Image2 from '../../../../assets/images/dancing_old_man/dacing_old_man2.png';
+import Image3 from '../../../../assets/images/dancing_old_man/dacing_old_man3.png';
+import Image4 from '../../../../assets/images/dancing_old_man/dacing_old_man4.png';
+import Image5 from '../../../../assets/images/dancing_old_man/dacing_old_man5.png';
+import Image6 from '../../../../assets/images/dancing_old_man/dacing_old_man6.png';
+import Image7 from '../../../../assets/images/dancing_old_man/dacing_old_man7.png';
+import Image8 from '../../../../assets/images/dancing_old_man/dacing_old_man8.png';
+import Image9 from '../../../../assets/images/dancing_old_man/dacing_old_man9.png';
+import Image10 from '../../../../assets/images/dancing_old_man/dacing_old_man10.png';
+import Image11 from '../../../../assets/images/dancing_old_man/dacing_old_man11.png';
+import Image12 from '../../../../assets/images/dancing_old_man/dacing_old_man12.png';
+import Image13 from '../../../../assets/images/dancing_old_man/dacing_old_man13.png';
+import Image14 from '../../../../assets/images/dancing_old_man/dacing_old_man14.png';
+import Image15 from '../../../../assets/images/dancing_old_man/dacing_old_man15.png';
+import Image16 from '../../../../assets/images/dancing_old_man/dacing_old_man16.png';
+import Image17 from '../../../../assets/images/dancing_old_man/dacing_old_man17.png';
+import Image18 from '../../../../assets/images/dancing_old_man/dacing_old_man18.png';
+import Image19 from '../../../../assets/images/dancing_old_man/dacing_old_man19.png';
+import Image20 from '../../../../assets/images/dancing_old_man/dacing_old_man20.png';
+import Image21 from '../../../../assets/images/dancing_old_man/dacing_old_man21.png';
+import Image22 from '../../../../assets/images/dancing_old_man/dacing_old_man22.png';
+import Image23 from '../../../../assets/images/dancing_old_man/dacing_old_man23.png';
+import Image24 from '../../../../assets/images/dancing_old_man/dacing_old_man24.png';
+import Image25 from '../../../../assets/images/dancing_old_man/dacing_old_man25.png';
+import Image26 from '../../../../assets/images/dancing_old_man/dacing_old_man26.png';
+import Image27 from '../../../../assets/images/dancing_old_man/dacing_old_man27.png';
+
+import ImageAdHeader from '../../../HOCS/HOC_Base_Theme/components/ImageAdHeader';
+import MakeGif from '../../../HOCS/HOC_Base_Theme/components/MakeGif';
 import Input from '../../../utils/forms/inputs';
 import Logo from './Logo';
 import LoginForm from './LoginForm';
-
-import ValidationRules from '../../../utils/forms/validationRules';
-import LoadTabs from '../Tabs/index';
 import LoginPannel from './LoginPannel';
-// import SocialAuthBtns from './SocialAuthBtns';
-
-// import { requestLogin } from '../../Store/Action/action';
 
 import {
   getOrientation,
-  setOrientationListener,
-  removeOrientationListener
+  removeOrientationListener,
+  setTokens,
+  getTokens
 } from '../../../utils/misc';
 
 import { Colors, ImageHeader } from '../../../HocComponents/index.js';
 import inputTheme from '../../../HOCS/HOC_Base_Theme/components/Input';
+import LoadTabs from '../Tabs/index';
 
 class LoginIndex extends Component {
   state = {
@@ -34,29 +66,40 @@ class LoginIndex extends Component {
     logoAnimation: false,
     type: 'Login',
     action: 'Login',
-    // actionMode: 'I want to register',
-    hasErrors: false,
-    form: {
-      email: {
-        value: '',
-        valid: false,
-        type: 'textinput',
-        rules: {
-          isRequired: true,
-          isEmail: true
-        }
-      },
-      password: {
-        value: '',
-        valid: false,
-        type: 'textinput',
-        rules: {
-          isRequired: true,
-          minLength: 6
-        }
-      }
-    }
+
+    loading: true
+    // actionMode: 'I want to register'
   };
+  images = [
+    Image1,
+    Image2,
+    Image3,
+    Image4,
+    Image5,
+    Image6,
+    Image7,
+    Image8,
+    Image9,
+    Image10,
+    Image11,
+    Image12,
+    Image13,
+    Image14,
+    Image15,
+    Image16,
+    Image17,
+    Image18,
+    Image19,
+    Image20,
+    Image21,
+    Image22,
+    Image23,
+    Image24,
+    Image25,
+    Image26,
+    Image27
+    // Coffee
+  ];
 
   changeOrientation = () => {
     this.setState({
@@ -64,102 +107,22 @@ class LoginIndex extends Component {
     });
   };
 
-  // updateInput = (name, value) => {
-  //   this.setState({
-  //     hasErrors: false
-  //   });
-
-  //   let formCopy = this.state.form;
-  //   formCopy[name].value = value;
-
-  //   ///rules
-  //   let rules = formCopy[name].rules;
-  //   let valid = ValidationRules(value, rules, formCopy);
-
-  //   formCopy[name].valid = valid;
-
-  //   this.setState({
-  //     form: formCopy
-  //   });
-  // };
-
-  // formHasErrors = () => {
-  //   console.log('FORM HAS ERRORS FUNC:', this.state.hasErrors);
-  //   if (this.state.hasErrors === true) {
-  //     return (
-  //       <View style={styles.errorContainer}>
-  //         <Text style={styles.errorLabel}>Oops, check your info.</Text>
-  //       </View>
-  //     );
-  //   }
-  // };
-
-  // submitUser = () => {
-  //   console.log('LOGIN PROPS:', this.props);
-  //   const { requestLogin } = this.props;
-  //   let isFormValid = true;
-  //   let formToSubmit = {};
-  //   const formCopy = this.state.form;
-  //   console.log('FORM Valid 1:', formCopy);
-  //   //LOGIN
-  //   isFormValid = isFormValid && formCopy['email'].valid;
-  //   isFormValid = isFormValid && formCopy['password'].valid;
-  //   formToSubmit['email'] = formCopy['email'].value;
-  //   formToSubmit['password'] = formCopy['password'].value;
-  //   console.log('FORM Login :', formToSubmit);
-
-  //   console.log('FORM Before IF Valid LOGIN:', isFormValid);
-
-  //   if (isFormValid) {
-  //     console.log('inside Valid Statment:', isFormValid);
-
-  //     let email = formToSubmit.email;
-  //     let password = formToSubmit.password;
-
-  //     // LoadTabs();
-  //     // if(this.state.for){
-
-  //     // }
-  //     requestLogin({ email, password }); // Make backend Call
-  //     console.log('right after REQUEST MADE:', email, password);
-  //     this.setState({
-  //       email: '',
-  //       password: '',
-  //       errors: {},
-  //       success: {},
-  //       isLoading: true
-  //     });
-  //   } else {
-  //     console.log('FORM HAS ERRORS:', this.state.hasErrors);
-  //     this.setState(
-  //       {
-  //         hasErrors: true
-  //       },
-  //       () => {
-  //         console.log('FORM HAS ERRORS:', this.state.hasErrors);
-  //       }
-  //     );
-  //   }
-  // };
-
   showLogin = () => {
     this.setState({
       logoAnimation: true
     });
   };
 
-  componentDidMount() {
-    console.log('LOGIN PROPS:', this.props);
-    console.log('FORM HAS ERRORS FUNC:', getOrientation(500));
-    // console.log('LOGIN FUNC :', requestLogin);
-    // console.log('LOGIN FUNC as PROPS :', this.props.requestLogin);
-    // console.log('LOGIN PROPS :', this.props);
-    // // console.log('LOGIN STATE :', this.state);
-    // if (this.props.isAuthenticated) {
-    //   console.log('PROPS AUTHENTICATED :', this.props.isAuthenticated);
-    //   // this.props.history.push('/profile');
-    // }
-  }
+  manageAccess = () => {
+    if (!this.props.isAuthenticated && this.props.user.uid) {
+      redirectTo(this.props.componentId, 'Auth'); // push back to AUTH
+    } else {
+      setTokens(this.props.user, () => {
+        this.setState({ hasErrors: false });
+        LoadTabs();
+      });
+    }
+  };
 
   componentWillUnmount() {
     removeOrientationListener();
@@ -168,30 +131,72 @@ class LoginIndex extends Component {
     console.log('LOGIN PROPS DID :', this.props);
     console.log(this.props.isAuthenticated);
     if (this.props.isAuthenticated || nextProps.isAuthenticated) {
-      console.log(
-        'PROPS AUTHENTICATED :',
-        this.props.isAuthenticated,
-        'NXT PROPS AUTHENTICATED :',
-        nextProps.isAuthenticated
-      );
-      // this.props.history.push('/profile');
+      console.log('NXT PROPS AUTHENTICATED :', nextProps.isAuthenticated);
+      this.manageAccess();
     }
   }
 
+  componentDidMount() {
+    getTokens(values => {
+      console.log('VALUES : ', values);
+    });
+  }
+
   render() {
-    console.log('INDEX PROPS Render:', this.props);
+    console.log('INDEX PROPS Render:', this.state.orientation);
 
     console.log('PROPS INDEX', this.props);
+
+    if (this.state.loading) {
+      return (
+        <View style={styles.loading}>
+          <View style={{ marginTop: deviceMeasures('height') / 9 }}>
+            <StaticLogo daddyColor={{ color: '#FFF' }} />
+            <View
+              style={{
+                marginTop: deviceMeasures('height') / 10.5,
+                marginBottom: deviceMeasures('height') / 23
+              }}
+            >
+              <ImageAdHeader
+                imgSrc={Loader}
+                background={
+                  this.state.orientation === 'portrait'
+                    ? styles.imageStylePortrait
+                    : styles.imageStyleLandscape
+                  // marginLeft: -50
+                }
+              />
+              <MakeGif
+                imgSrc={this.images}
+                background={
+                  this.state.orientation === 'portrait'
+                    ? {
+                        resizeMode: 'cover',
+                        // flex: 1,
+                        alignSelf: 'center',
+                        marginTop: 0,
+                        width: 180,
+                        // // width: deviceMeasures('width') - 1,
+                        height: 180
+                      }
+                    : styles.imageStyleLandscape
+                  // marginLeft: -50
+                }
+              />
+            </View>
+            <Text style={styles.loadingText}> Loading your stuff... ..</Text>
+            <Text style={styles.loadingText2}> Please wait.</Text>
+            <View style={styles.WaitView}>
+              <Text style={styles.Wait}> Getting info </Text>
+            </View>
+          </View>
+        </View>
+      );
+    }
+
     return (
       <View style={styles.container}>
-        {/* <LoginForm
-            requestLogin={this.props.requestLogin}
-            showLogin={this.showLogin}
-          /> */}
-        {/* <LoginForm
-          requestLogin={this.props.requestLogin}
-          showLogin={this.showLogin}
-        /> */}
         {this.props.isRegisteredSuccess ? (
           <LoginForm
             requestLogin={this.props.requestLogin}
@@ -221,13 +226,80 @@ class LoginIndex extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: '45%',
     backgroundColor: '#FFF',
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'center',
     alignSelf: 'center'
-    // padding: 15
-    // marginTop: 25
+  },
+  loading: {
+    flex: 1,
+    backgroundColor: '#039be5',
+    alignItems: 'center',
+
+    // justifyContent: 'center',
+    color: '#FFFF'
+  },
+  imageStylePortrait: {
+    resizeMode: 'cover',
+    // flex: 1,
+    alignSelf: 'center',
+    marginTop: 0,
+    width: 80,
+    // // width: deviceMeasures('width') - 1,
+    height: 80
+  },
+  loadingText: {
+    paddingBottom: 12,
+    flexWrap: 'wrap',
+    fontSize: 35,
+    color: '#FFF',
+    // marginTop: '25%',
+    elevation: 2,
+    fontFamily: 'RobotoCondensed-Bold',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.2
+  },
+  loadingText2: {
+    paddingBottom: 25,
+    flexWrap: 'wrap',
+    fontSize: 35,
+    color: '#FFF',
+    // marginTop: '25%',
+    elevation: 2,
+    fontFamily: 'RobotoCondensed-Bold',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.2
+  },
+
+  WaitView: {
+    borderWidth: 1,
+    width: deviceMeasures('width') / 2.5,
+    height: 50,
+    borderRadius: 8,
+    borderColor: '#FFF',
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.2
+  },
+  Wait: {
+    padding: 10,
+
+    color: '#039be5',
+    flexWrap: 'wrap',
+    fontSize: 20,
+    // color: 'rgb(181,215,252)',
+    // marginTop: '25%',
+    // elevation: 2,
+    fontFamily: 'RobotoCondensed-Bold'
   },
   welcome: {
     textAlign: 'center',
@@ -238,90 +310,9 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 10,
     marginBottom: 10
-  },
-  inputWrapper: {
-    marginTop: 8,
-    marginBottom: 40
-  },
-  submitBtnAttr: {
-    ...Platform.select({
-      ios: {
-        marginRight: 10,
-        marginLeft: 10,
-        backgroundColor: '#1A73E8',
-        marginBottom: 10,
-        marginTop: 0,
-        paddingTop: 7,
-        paddingBottom: 7,
-        borderColor: '#1A73E8',
-        borderRadius: 3,
-        borderWidth: 3
-      },
-      android: {
-        marginRight: 40,
-        marginLeft: 40,
-        marginBottom: 10,
-        marginTop: 0,
-        paddingTop: 7,
-        paddingBottom: 7,
-        backgroundColor: '#1A73E8',
-        borderRadius: 3,
-        borderWidth: 3,
-        borderColor: '#1A73E8'
-      }
-    })
-  },
-  regBlueBtn: {
-    marginRight: 10,
-    marginLeft: 10,
-    // marginBottom: 20,
-    marginTop: 0,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderRadius: 3,
-    borderWidth: 3,
-    borderColor: '#2196F3',
-    backgroundColor: '#2196F3',
-    fontSize: 20
-  },
-  loginText: {
-    color: '#fff',
-    textAlign: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
-    fontSize: 18
-  },
-  errorContainer: {
-    marginBottom: 10,
-    marginTop: 30,
-    padding: 10,
-    backgroundColor: '#f44336'
-  },
-  errorLabel: {
-    color: '#fff',
-    textAlignVertical: 'center',
-    textAlign: 'center'
-  },
-  button: {
-    ...Platform.select({
-      ios: {
-        marginBottom: 0
-      },
-      android: {
-        marginBottom: 10,
-        marginTop: 10
-      }
-    })
-  },
-  imgBackgroundblue: {
-    backgroundColor: Colors.lightBlue1
-  },
-  btnWrap: {
-    marginTop: 40,
-    // marginTop: 8,
-    marginBottom: 40
   }
 });
+
 // export default connect(
 //   mapStateToProps,
 //   mapDispatchToProps
