@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 import Input from '../../../utils/forms/inputs';
 import HomeJsx from './home/HomeJsx';
 
-
 import Container from '../../../HOCS/HOC_Base_Theme/components/Container';
 import Content from '../../../HOCS/HOC_Base_Theme/components/Content';
 import Header from '../../../HOCS/HOC_Base_Theme/components/Header';
@@ -23,7 +22,8 @@ import commonColor from '../../../HOCS/HOC_Base_Theme/variables/commonColor';
 
 // import { requestLogin } from '../../store/action';
 
-import { Colors } from '../../../HocComponents/index.js';
+import { StyledComponents } from '../../../HocComponents/index.js';
+import SearchBar from '../SearchBar/SearchBar';
 
 class Home extends Component {
   componentDidMount() {
@@ -61,243 +61,29 @@ class Home extends Component {
           {/* <ThemeExample/> */}
         </Content>
 
-        <Header
-          androidStatusBarColor={commonColor.statusBarLight}
-          style={Platform.OS === 'ios' ? styles.iosHeader : styles.aHeader}
-        >
-          <Left>
-            <Button transparent onPress={() => Actions.pop()}>
-              <Icon
-                name="md-arrow-back"
-                style={{
-                  fontSize: 28,
-                  marginLeft: 5,
-                  color: commonColor.brandPrimary
-                }}
-              />
-            </Button>
-          </Left>
-          <Body>
-            <Title
-              style={
-                Platform.OS === 'ios'
-                  ? styles.iosHeaderTitle
-                  : styles.aHeaderTitle
-              }
-              title={'Sign In'}
-            >
-              Sign In
-            </Title>
-            {/* <Text style={{color: 'blue',       fontSize: 17,
-            marginLeft: 2,
-            lineHeight: 21}}> THERE is a Header </Text> */}
-          </Body>
-          <Right />
-        </Header>
-        <Content
-          // style={{ padding: 10 }}
-          style={'shopDaddy.Segment'}
-          scrollEnabled
-          bounces={false}
-        >
-          {this.props ? (
-            // this.props.appConfig.enableGoogle ? (
-            // <Button
-            //   onPress={
-            //     () => console.log('SIGN IN  GOOGLE')
-            //     // signInWithGoogleAsync(
-            //     //   this.props.socailSignupSuccess,
-            //     //   this.props.appConfig.googleAuth,
-            //     //   this.props.checkUser,
-            //     //   this.props.userLoginRequest
-            //     // )
-            //   }
-            //   block
-            //   style={{
-            //     paddingLeft: 0,
-            //     backgroundColor: 'red',
-            //     marginBottom: 15,
-            //     borderRadius: 4,
-            //     height: 50
-            //   }}
-            // >
-            //   <Left style={styles.googleLeft}>
-            <Icon active name="logo-googleplus" style={{ color: '#fff' }} />
-          ) : (
-            //   </Left>
-            //   <Body style={{ flex: 3 }}>
-            //     <Text style={{ color: '#fff', fontWeight: 'bold' }}>
-            //       Sign in with Google
-            //     </Text>
-            //   </Body>
-            //   <Right />
-            // </Button>
-            <View />
-          )}
-          {this.props ? (
-            // this.props.appConfig.enableFacebook ? (
-            <View style={{ flexDirection: 'row', flex: 1, marginTop: 80 }}>
-              <View
-                style={{
-                  // width: ' 350%',
-                  marginTop: 20,
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <Left style={styles.fbLeft}>
-                  <Button
-                    onPress={
-                      () => console.log('SIGN IN FACEBOOK')
-                      // requestFbLogin(
-                      //   this.props.socailSignupSuccess,
-                      //   this.props.appConfig.facebookAuth,
-                      //   this.props.checkUser,
-                      //   this.props.userLoginRequest
-                      // )
-                    }
-                    // block
-                    prop1={{
-                      paddingLeft: 0,
-                      backgroundColor: '#4e71ba',
-                      // borderRadius: 4,
-                      // height: 60,
-                      // borderWidth: 2,
-                      // borderColor: 'blue',
-                      borderBottomRightRadius: -40,
-                      borderBottomLeftRadius: 42,
-
-                      borderTopLeftRadius: 40,
-                      borderTopRightRadius: -40
-                    }}
-                    // prop1={'.warning'}
-                  >
-                    <View style={{ flexDirection: 'row' }}>
-                      <View>
-                        <Text
-                          style={{ paddingLeft: 0, alignItems: 'flex-start' }}
-                        >
-                          Icon
-                        </Text>
-                      </View>
-
-                      <Text style={{ color: '#fff', fontWeight: 'bold' }}>
-                        Facebook
-                      </Text>
-                    </View>
-                  </Button>
-                </Left>
-              </View>
-
-              <View
-                style={{
-                  // position: 'absolute',
-                  // elevation: 3,
-
-                  height: 60,
-                  width: 60,
-                  borderRadius: 30,
-                  backgroundColor: '#5D81A3',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  // marginLeft: '40%',
-                  // marginRight: '40%',
-                  // marginTop: 20,
-                  backgroundColor: '#ddebe9'
-                }}
-              >
-                <Text style={styles.orText}>OR</Text>
-              </View>
-
-              <View
-                style={{
-                  // position: 'relative',
-                  // width: ' 40%',
-                  // marginTop: 10,
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <Right>
-                  <Button
-                    title={'Google'}
-                    prop1={{
-                      // width: 50,
-                      borderBottomRightRadius: 40,
-
-                      borderBottomLeftRadius: 5,
-
-                      borderTopLeftRadius: 5,
-                      borderTopRightRadius: 40
-                    }}
-                    // style={{
-                    //   paddingLeft: 0,
-                    //   backgroundColor: '#3B579D',
-                    //   // backgroundColor: '#ddebe9',
-                    //   borderRadius: 4,
-                    //   height: 20
-                    // }}
-                  >
-                    <Text>with Google</Text>
-                  </Button>
-                </Right>
-              </View>
-            </View>
-          ) : (
-            <View />
-          )}
-          <View style={{ padding: 10 }}>
-            {this.props && (
-              // {this.props.appConfig.enableFacebook ||
-              // this.props.appConfig.enableGoogle ? (
-              <View style={{ marginBottom: 30, marginTop: 20 }}>
-                {/* <View
-                  style={{
-                    marginTop: 20,
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <View
-                    style={{
-                      height: 60,
-                      width: 60,
-                      borderRadius: 30,
-                      backgroundColor: '#5D81A3',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <Text style={styles.orText}>OR</Text>
-                  </View>
-                </View> */}
-                {/* <Item
-                  style={{
-                    flex: 1,
-                    height: 1,
-                    borderColor: '#5D81A3',
-                    marginTop: -40,
-                    zIndex: -1
-                  }}
-                /> */}
-              </View>
-            )
-            //  : null
-            }
-            {/* {this.state.socialLogin && (
-              <RegisterFormFb socialLogin={this.state.socialLogin} />
-            )} */}
-            {/* {!this.state.socialLogin && (
-              <LoginForm isFetching={this.props.isFetching} />
-            )} */}
-            {/* {this.state.showError &&
-              Toast.show({
-                text: this.props.errormsg,
-                position: 'bottom',
-                duration: 1500
-              })} */}
+        <>
+          <View style={StyledComponents.inlineSmallImagesWrapper}>
+            <Text style={StyledComponents.grayTextColor}> Clothes</Text>
+            <Text style={StyledComponents.grayTextColor}> Restaurants</Text>
+            <Text style={StyledComponents.grayTextColor}> Food</Text>
+            <Text style={StyledComponents.grayTextColor}> Social</Text>
           </View>
-        </Content>
+
+          <SearchBar />
+          <Content style={'styles.container'}>
+            <Text style={StyledComponents.grayTextColor}>
+              Conetmet Container
+            </Text>
+          </Content>
+
+          <Content // style={{ padding: 10 }}
+            style={'shopDaddy.Segment'}
+            scrollEnabled
+            bounces={false}
+          >
+            <Text style={StyledComponents.grayTextColor}>Content Segment</Text>
+          </Content>
+        </>
       </View>
     );
   }

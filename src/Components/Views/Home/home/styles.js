@@ -178,10 +178,14 @@ export default {
   headerContainer: {
     position: 'absolute',
     top: 0,
-    width: deviceWidth + 5
+    width: deviceWidth,
+    alignSelf: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   iosHeader: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    width: deviceWidth
   },
   aHeader: {
     backgroundColor: '#fff',
