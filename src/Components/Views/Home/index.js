@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Platform } from 'react-native';
+import {Navigation} from 'react-native-navigation'
 
 import Input from '../../../utils/forms/inputs';
 import HomeJsx from './home/HomeJsx';
@@ -20,13 +21,21 @@ import styles from './home/styles';
 // import ValidationRules from '../../../../utils/forms/validationRules';
 import commonColor from '../../../HOCS/HOC_Base_Theme/variables/commonColor';
 
-// import { requestLogin } from '../../store/action';
+import { navigatorDrawer } from '../../../utils/misc';
 
 import { StyledComponents } from '../../../HocComponents/index.js';
 import SearchBar from '../SearchBar/SearchBar';
 
 class Home extends Component {
+  constructor(props){
+   
+    super(props)
+
+   Navigation.events().bindComponent(this)
+  }
+
   componentDidMount() {
+
     // console.log('LOGIN FUNC :', requestLogin);
     // console.log('LOGIN FUNC as PROPS :', this.props.requestLogin);
     // console.log('LOGIN PROPS :', this.props);
@@ -36,7 +45,20 @@ class Home extends Component {
     //   // this.props.history.push('/profile');
     // }
   }
+  navigationButtonPressed = ({ buttonId }) => {
+    const { componentId } = this.props;
+  
+    if (buttonId === 'sideMenu') {
 
+      Navigation.mergeOptions(componentId, {
+        sideMenu: {
+          left: {
+            visible: true,
+          },
+        },
+      });
+    }
+  }
   componentDidUpdate(prevProps, nextProps) {
     // console.log(this.props.isAuthenticated);
     // if (this.props.isAuthenticated || nextProps.isAuthenticated) {
@@ -52,6 +74,7 @@ class Home extends Component {
 
   render() {
     console.log('PROPS: ', this.props);
+    console.log('NAVIGATION EVENT PROPS: ',  Navigation.events());
 
     return (
       <View style={{ backgroundColor: commonColor.toolbarDefaultBg }}>

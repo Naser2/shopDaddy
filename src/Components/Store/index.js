@@ -2,10 +2,12 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-import { requestLogin, registerUser, checkAuth } from './Action/action';
+import { requestLogin, registerUser, autoLogin, logOut } from './Action/action';
 
-import LoginIndex from '../Views/Login/index'
+import LoginIndex from '../Views/Login/index';
+
 import SignupComponent from '../Views/Signup/index.js';
+import SideDrawerComponent from '../Views/SideDrawer/index';
 
 // import WelcomeComponent from './Views/Welcome';
 
@@ -13,11 +15,13 @@ function mapStateToProps(state) {
   const { auth } = state;
 
   return {
-    isLoading: auth.loading,
+    user: auth.user,
+    isLoading: auth.isLoading,
     error: auth.error,
     success: auth.success,
     isRegisteredSuccess: auth.isRegisteredSuccess,
     isVerifying: auth.isVerifying,
+    message: auth.message,
     isAuthenticated: auth.isAuthenticated
   };
 }
@@ -25,29 +29,30 @@ function mapStateToProps(state) {
 export const Auth = compose(
   connect(
     mapStateToProps,
-    {
-      requestLogin,
-      registerUser
-    }
+    { registerUser, requestLogin, autoLogin }
   )
 )(LoginIndex);
 
 export const Signup = compose(
   connect(
     mapStateToProps,
-    {
-      registerUser
-    }
+    { registerUser, requestLogin, autoLogin }
   )
 )(SignupComponent);
 
+export const SideDrawer = compose(
+  connect(
+    mapStateToProps,
+    { logOut }
+  )
+)(SideDrawerComponent);
 
 // export const Welcome = compose(
 //   connect(
 //     mapStateToProps,
-//     { 
+//     {
 //       authCheck
-   
+
 //     }
 //   )
 // )(WelcomeComponent);
