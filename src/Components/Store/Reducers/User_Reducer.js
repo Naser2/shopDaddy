@@ -3,7 +3,7 @@ import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILED,
   AUTH_CHECK,
-  LOGOUT_USER,
+  AUTH_LOGOUT,
   CLEAR_ERROR,
   AUTH_REGISTER,
   AUTH_REGISTER_FAILED,
@@ -19,8 +19,17 @@ import { TOKEN_KEY } from '../../../utils/constants';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const initialState = {
-  user: {},
-  loading: false,
+  user: {
+   data: {
+      uid: false,
+      token: false,
+      refToken: false
+    }
+  },
+  isRegisteredSuccess: false,
+  isVerifying: false,
+  message: 'No message yet',
+  isLoading: false,
   isAuthenticated: false,
   loaded: false,
   error: false,
@@ -35,100 +44,126 @@ function checkAuth(state) {
   console.log('RETRIVED TRUE : ', !!AsyncStorage.getItem(TOKEN_KEY));
   return {
     ...state,
-    isAuthenticated: !!AsyncStorage.getItem(TOKEN_KEY)
+    isAuthenticated: !!token
   };
 }
 
 function isRequest(state) {
   return {
     ...state,
-    loading: true
+    isLoading: true,
+    isVerifying: true
   };
 }
 
-function isRequestSuccess(state, user) {
-  return {
-    ...state,
-    loading: false,
-    loaded: true,
-    error: false,
-    errorMessage: '',
-    user,
-    // isAuthenticated: true,
-    isSuccess: true
-  };
-}
+// function isRequestSuccess(state, user) {
+//   return {
+//     ...state,
+//     loading: false,
+//     loaded: true,
+//     error: false,
+//     errorMessage: '',
+//     user: 'Getting user attributes ...',
+//     // isAuthenticated: true,
+//     isSuccess: true,
+//     isLoading: 'Finishing load'
+//   };
+// }
 function isRequestRegisterSuccess(state, user) {
   return {
     ...state,
-    loading: false,
+    isLoading: false,
     loaded: true,
     error: false,
     errorMessage: '',
     // user,
     user: {
-      uid: user.localId,
-      token: user.idToken,
-      refToken: user.refreshToken
+      data: {
+        uid: user.localId,
+        token: user.idToken,
+        expires_in: user.expires_in,
+        refToken: user.refreshToken,
+        token_type: user.token_type
+      }
     },
-    // user: {
-    //   uid: action.payload.localId || false,
-    //   token: action.payload.idToken || false,
-    //   refToken: action.payload.refreshToken || false
-    // },
     isAuthenticated: false,
-    isRegisteredSuccess: true
+    isRegisteredSuccess: true,
+    message:
+      'Congrats! We sent you an mail, please, go click to confirm your email!',
+    isVerifying: 'done'
   };
 }
 function isRequesLogintSuccess(state, user) {
   return {
     ...state,
-    loading: false,
+    isLoading: false,
     loaded: true,
     error: false,
     errorMessage: '',
     user: {
-      uid: action.payload.localId || false,
-      token: action.payload.idToken || false,
-      refToken: action.payload.refreshToken || false
+      data: {
+        uid: user.localId,
+        token: user.idToken,
+        refToken: user.refreshToken
+      }
     },
     isAuthenticated: true,
-    isSuccess: true
+    isSuccess: true,
+    isVerifying: 'done'
   };
 }
 
-function isRequestFailed(state, payload) {
+function isRequestFailed(state, error) {
   return {
     ...state,
-    loading: false,
+    isLoading: false,
     loaded: false,
     error: true,
-    errorMessage: payload.message
+    errorMessage: error.message,
+    isVerifying: false
   };
 }
-function isRequesAutoLoginSuccess(state, payload) {
+function isRequesAutoLogin(state) {
+  return {
+    ...state,
+    user: 'Processing request',
+    isAuthenticated: 'Checking now',
+    isLoading: true,
+    loaded: false,
+    isVerifying: true,
+    error: false,
+    errorMessage: '',
+    isSuccess: false,
+    message: 'Welcome back!'
+  };
+}
+function isRequesAutoLoginSuccess(state, user) {
   return {
     ...state,
     user: {
-      uid: action.payload.user_id || false,
-      token: action.payload.id_token || false,
-      refToken: action.payload.refresh_token || false
+      data: {
+        uid: user.user_id,
+        token: user.id_token,
+        refToken: user.refresh_token
+      }
     },
-    loading: false,
+    isAuthenticated: true,
+    message: 'Welcome back!',
+    isLoading: false,
     loaded: true,
     error: false,
     errorMessage: '',
-    isAuthenticated: true,
     isSuccess: true
   };
 }
 
-function logout(state) {
-  AsyncStorage.removeItem(TOKEN_KEY);
+function isLogout(state) {
   return {
     ...state,
     isAuthenticated: false,
-    user: null
+    user: null,
+    isLoading: false,
+    message: "You're successfuly loged-out"
   };
 }
 
@@ -151,16 +186,16 @@ function authReducer(state = initialState, action) {
       return isRequestFailed(state, action);
     //LOGIN
     case AUTH_AUTO_LOGIN:
-      return isRequesAutoLogin(state, action);
+      return isRequesAutoLogin(state);
     case AUTH_AUTO_LOGIN_SUCCESS:
-      return isRequesAutoLoginSuccess(state, action);
+      return isRequesAutoLoginSuccess(state, action.user);
     case AUTH_AUTO_LOGIN_FAIL:
-      return isRequesAutoLoginFail(state, action);
+      return isRequesAutoLoginFail(state);
     //AUTH CHECK
     case AUTH_CHECK:
       return checkAuth(state);
-    case LOGOUT_USER:
-      return logout(state);
+    case AUTH_LOGOUT:
+      return isLogout(state);
     case CLEAR_ERROR:
       return { ...state, error: false, errorMessage: '' };
 
