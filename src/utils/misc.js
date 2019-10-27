@@ -1,29 +1,30 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform, AsyncStorage } from 'react-native';
+
 import { TOKEN_KEY } from './constants';
 // import AsyncStorage from '@react-native-community/async-storage';
 import { Navigation } from 'react-native-navigation';
 
 export const FIREBASEURL = `https://onewayApp-e48c8.firebaseio.com`;
-export const APIKEY = `AIzaSyBKaQRZpJEkmq0l_88yiQoSCNFutd9Rf5c`;
-export const SIGNUP = `https://infinite-dusk-98291.herokuapp.com/users`;
-export const LOGIN = `https://infinite-dusk-98291.herokuapp.com/user_token`;
+
+export const APIKEY = `
+AIzaSyCMkJvCRx8xNWPfSJE0Fg-j7nECVdglZ3Y`;
+
+export const LOGIN = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${APIKEY}`;
+
+export const SIGNUP = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${APIKEY}`;
 export const REFRESH = `https://securetoken.googleapis.com/v1/token?key=${APIKEY}`;
 
-
-
-export const deviceMeasures=(prop)=>{
-  if(prop==='height'){
-    const deviceHeight = Dimensions.get('window').height
-    return deviceHeight
-  }else if(prop==='width'){
-    const deviceWidth = Dimensions.get('window').width
-    return deviceWidth
+export const deviceMeasures = prop => {
+  if (prop === 'height') {
+    const deviceHeight = Dimensions.get('window').height;
+    return deviceHeight;
+  } else if (prop === 'width') {
+    const deviceWidth = Dimensions.get('window').width;
+    return deviceWidth;
   } else {
-    alert("nothing passed in Device Measures")
+    alert('nothing passed in Device Measures');
   }
-
-}
-
+};
 
 export const getOrientation = value => {
   return Dimensions.get('window').height > value ? 'portrait' : 'landscape';
@@ -54,6 +55,20 @@ export const navigatorDrawer = (event, $this) => {
   }
 };
 
+navigationButtonPressed = ({ buttonId }) => {
+  const { componentId } = this.props;
+
+  if (buttonId === 'sideMenu') {
+    Navigation.mergeOptions(componentId, {
+      sideMenu: {
+        left: {
+          visible: true,
+        },
+      },
+    });
+  }
+}
+
 export const navigatorDeepLink = (event, $this) => {
   if (event.type === 'DeepLink') {
     $this.props.navigator.toggleDrawer({
@@ -79,22 +94,72 @@ export const navigatorDeepLink = (event, $this) => {
   }
 };
 
-export const setToken = async token => {
-  // await AsyncStorage.setItem(TOKEN_KEY, token);
-  return true;
+export const getTokens = cb => {
+  AsyncStorage.multiGet([
+    '@shop-daddy@token',
+    '@shop-daddy@refreshToken',
+    '@shop-daddy@expireToken',
+    '@shop-daddy@uid'
+  ]).then(value => {
+    cb(value);
+  });
 };
 
-export const getToken = async () =>{
-  // (await AsyncStorage.getItem(TOKEN_KEY)) || '';
-  
-}
-  export const redirectTo = (componentId, screenName)=>{
-    Navigation.push(componentId, {
-      component: {
-        name: screenName
+export const setTokens = (values, cb) => {
+  const dateNow = new Date();
+  const expiration = dateNow.getTime() + 3600 * 1000;
+
+  AsyncStorage.multiSet([
+    ['@shop-daddy@token', values.token],
+    ['@shop-daddy@refreshToken', values.refToken],
+    ['@shop-daddy@expireToken', expiration.toString()],
+    ['@shop-daddy@uid', values.uid]
+  ]).then(response => {
+    cb();
+  });
+};
+
+
+export const destroyTokens = cb => {
+  AsyncStorage.multiRemove(
+    '@shop-daddy@token',
+    '@shop-daddy@token',
+    '@shop-daddy@token',
+    '@shop-daddy@token'
+  ).then(() => {
+    cb();
+  });
+};
+export const gridTwoColumns = list => {
+  let newArticles = [];
+  let articles = list;
+
+  let count = 1;
+  let vessel = {};
+
+  if (articles) {
+    articles.forEach(element => {
+      if (count == 1) {
+        vessel['blockOne'] = element;
+        count++;
+      } else {
+        vessel['blockTwo'] = element;
+        newArticles.push(vessel);
+
+        count = 1;
+        vessel = {};
       }
-    })
+    });
   }
+  return newArticles;
+};
+export const redirectTo = (componentId, screenName) => {
+  Navigation.push(componentId, {
+    component: {
+      name: screenName
+    }
+  });
+};
 // This are utilities
 export const callSafely = function(func, ...args) {
   if (![undefined, null].includes(func)) {
@@ -105,8 +170,6 @@ export const callSafely = function(func, ...args) {
 export const timeHelper = (interval, format, displayFormat) => {
   return moment(interval, format).format(displayFormat);
 };
-
-
 
 // export const getTokens = (cb) => {
 //     AsyncStorage.multiGet([
