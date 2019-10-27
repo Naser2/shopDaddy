@@ -1,7 +1,9 @@
-import 'whatwg-fetch';
+// import 'whatwg-fetch';
 import { isUndefined } from 'lodash';
 import { errorCodes } from './constants';
 import { getToken } from './misc';
+import { LOGIN as API_URL } from './misc';
+import axios from 'axios';
 
 const {
   HTTP_200_OK,
@@ -46,30 +48,34 @@ const GET_OPTIONS = {
   method: 'GET'
 };
 
-function checkRequestStatus(response) {
-  if (response.status === HTTP_204_NO_CONTENT) return {};
+// function checkRequestStatus(response) {
+//   if (response.status === HTTP_204_NO_CONTENT) return;
+//   console.log('NO CONTENT');
 
-  const json = response.json();
+//   const json = response.json();
 
-  if (
-    // What is the logic here
-    response.status >= HTTP_200_OK &&
-    response.status < HTTP_300_MULTIPLE_CHOICES
-  ) {
-    return json;
-  }
+//   if (
+//     // What is the logic here
+//     response.status >= HTTP_200_OK &&
+//     response.status < HTTP_300_MULTIPLE_CHOICES
+//   ) {
+//     console.log('BTW 200 && 300 ', response.status);
+//     return json;
+//   }
 
-  return json.then(err => {
-    // What is the logic here
-    console.log(response);
-    const error = new Error(response.status);
-    error.body = err;
-    error.errorStatus = response.status;
-    error.errorMessage = err.errors;
-    error.message = err.message;
-    throw error;
-  });
-}
+//   console.log('Testing ERROR in REQUEST ', json);
+
+//   return json.then(err => {
+//     // What is the logic here
+//     console.log(response);
+//     const error = new Error(response.status);
+//     error.body = err;
+//     error.errorStatus = response.status;
+//     error.errorMessage = err.errors;
+//     error.message = err.message;
+//     throw error;
+//   });
+// }
 
 /**
  * @param {string} url The URL we want to request
@@ -84,9 +90,17 @@ export default async function(
   errorHandler,
   isExternalApi
 ) {
-  const API_URL = 'https://infinite-dusk-98291.herokuapp.com';
+  // const API_URL = 'https://infinite-dusk-98291.herokuapp.com';
 
-  const ROOT_URL = isExternalApi ? url : `${API_URL}${url}`;
+  function ReturnRsponse(response) {
+    if (response) {
+      const json = response.json();
+      return json;
+    }
+  }
+
+  const ROOT_URL = isExternalApi ? url : `${API_URL}`;
+
   let errHandler = errorHandler;
   if (isUndefined(errHandler)) {
     errHandler = err => {
@@ -125,10 +139,13 @@ export default async function(
     default:
       bakedOptions = GET_OPTIONS;
   }
-  return fetch(ROOT_URL, {
-    ...bakedOptions,
-    ...options
-  })
-    .then(checkRequestStatus)
-    .catch(errHandler);
+  return (
+    axios(ROOT_URL, {
+      ...bakedOptions,
+      ...options
+    })
+      // .then(checkRequestStatus)
+      .then(ReturnRsponse)
+      .catch(errHandler)
+  );
 }
