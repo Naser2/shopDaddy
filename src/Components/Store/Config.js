@@ -7,6 +7,8 @@ let reduxCompose = compose;
 
 if (__DEV__) {
   reduxCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // reduxCompose =  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() || compose
+  // || compose;
 }
 // const configureStore = () => {
 //     return createStore(Reducers, reduxCompose(applyMiddleware(promiseMiddleware)))
