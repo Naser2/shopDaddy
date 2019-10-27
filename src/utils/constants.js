@@ -1,6 +1,6 @@
 export const API_HOST = process.env.REACT_APP_API_URL;
 //export const TOKEN_KEY = `ONE_WAY_${process.env.NODE_ENV}`;
-export const TOKEN_KEY = 'ONE_WAY_DEVELOPMENT';
+export const TOKEN_KEY = 'SHOP_DADDY_DEVELOPMENT';
 export const LOGO_URL = '/images/logo.png';
 
 // Error Codes
