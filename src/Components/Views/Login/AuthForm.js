@@ -11,7 +11,7 @@ import {
 import Input from '../../../utils/forms/inputs';
 import SocialAuthBtns from './SocialAuthBtns';
 import ValidationRules from '../../../utils/forms/validationRules';
-import LoadTabs from '../Tabs/index';
+import LoadTabs from '../Tabs/index.js';
 import {
   getOrientation,
   setOrientationListener,
@@ -111,10 +111,10 @@ class AuthForm extends Component {
     ) : null;
 
   manageAccess = () => {
-    if (!this.props.User.userData.uid) {
+    if (!this.props.user.auth.uid) {
       this.setState({ hasErrors: true });
     } else {
-      setTokens(this.props.User.userData, () => {
+      setTokens(this.props.user.auth, () => {
         this.setState({ hasErrors: false });
         LoadTabs(true);
       });
@@ -203,7 +203,7 @@ class AuthForm extends Component {
               // backgroundColor: 'rgb(218,219,201)',
               // backgroundColor: '#dff0ff'
               // backgroundColor: 'rgb(227,15,126)'
-              backgroundColor: 'purple'
+              backgroundColor: '#609'
             }}
           >
             <Text
@@ -216,7 +216,7 @@ class AuthForm extends Component {
                         // color: '#FFFF',
                         fontSize: 34,
                         fontFamily: 'RobotoCondensed-Bold',
-                        fontWeight: 600,
+                        fontWeight: '600',
                         textAlign: 'center',
                         paddingTop: 7,
                         paddingLeft: 7,
@@ -245,7 +245,7 @@ class AuthForm extends Component {
             >
               Welcome
             </Text>
-            <Line
+            {/* <Line
               style={{
                 // marginTop:-2,
                 // backgroundColor: '#dff0ff',
@@ -253,7 +253,7 @@ class AuthForm extends Component {
                 height: 0.5,
                 width: deviceMeasures('width') / 3
               }}
-            />
+            /> */}
           </View>
           <View>
             <Line
@@ -299,7 +299,7 @@ class AuthForm extends Component {
                 marginBottom: 0,
                 marginTop: 0,
                 fontFamily: 'RobotoCondensed-Bold',
-                fontWeight: 500,
+                fontWeight: '500',
                 fontSize: 25,
                 color: 'black',
                 shadowColor: 'lightblue',
@@ -314,7 +314,15 @@ class AuthForm extends Component {
             {this.state.action}
           </Text>
         </View>
-        <View style={{ marginTop: 30 }}>
+        <View
+          style={{
+            // marginTop: deviceMeasures('height') / 22,
+            // width: deviceMeasures('width') / 1.2,
+            // alignContent: 'center',
+            marginLeft: deviceMeasures('width') / 10,
+            marginRight: deviceMeasures('width') / 10
+          }}
+        >
           <Input
             style={inputTheme()}
             placeholder="Enter your email"
@@ -477,9 +485,4 @@ function mapStateToProps(state) {
   };
 }
 
-// function mapDispatchToProps(dispatch){
-// return bindActionCreators({signUp,signIn},dispatch)
-// }
-
-// export default connect(mapStateToProps,mapDispatchToProps)(LoginForm)
 export default AuthForm;
