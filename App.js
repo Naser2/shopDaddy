@@ -3,9 +3,10 @@ import { Provider } from 'react-redux';
 // import Login from './src/Components/Store/index';
 // import {Login} from './src/Components/Store/index';
 // import SignUp from './src/Components/Views/Signup';
-import {Auth} from './src/Components/Store/index';
+import { Auth, UserProfile } from './src/Components/Store/index';
 
 import Home from './src/Components/Views/Home';
+import { SideDrawer } from './src/Components/Store/index';
 import AddPost from './src/Components/Views/Admin/AddPost';
 // import { Navigation } from 'react-native-navigation';
 // import LoadTabs from './src/Components/Views/Tabs/index';
@@ -35,6 +36,7 @@ Navigation.registerComponent(
   ),
   () => Auth
 );
+
 Navigation.registerComponent(
   'shopDaddy.SignUp',
   () => props => (
@@ -43,6 +45,24 @@ Navigation.registerComponent(
     </Provider>
   ),
   () => SignUp
+);
+// Navigation.registerComponent(
+//   'shopDaddy.UserProfile',
+//   () => props => (
+//     <Provider store={store}>
+//       <UserProfile />
+//     </Provider>
+//   ),
+//   () => UserProfile
+// );
+Navigation.registerComponent(
+  'shopDaddy.SideDrawer',
+  () => props => (
+    <Provider store={store}>
+      <SideDrawer />
+    </Provider>
+  ),
+  () => SideDrawer
 );
 Navigation.registerComponent(
   'shopDaddy.AddPost',
@@ -111,13 +131,25 @@ export default () =>
   Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
       root: {
-        component: {
-          name: 'shopDaddy.Auth',
-          options: {
-            topBar: {
-              title: { text: 'Welcome', color: 'blue' }
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'shopDaddy.Auth',
+                options: {
+                  topBar: {
+                    title: {
+                      text: 'Welcome',
+                      color: 'purple',
+                      color: 'black',
+                      fontWeight: 'bold',
+                      fontSize: 21
+                    }
+                  }
+                }
+              }
             }
-          }
+          ]
         }
       }
     });
