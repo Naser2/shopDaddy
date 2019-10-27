@@ -1,9 +1,13 @@
 import { Navigation } from 'react-native-navigation';
+import { Image } from 'react-native';
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome.js';
 // /Users/techman/shopDaddy/node_modules/react-native-vector-icons/FontAwesome5Pro.js
 import BlackPersonIcon from './assets/images/person_icon.png';
+import TestIcon from './assets/images/advertise.png';
 // import BlackPersonIcon from './assets/images/profile.png';
 import SideMenu from './assets/images/side_menu.png';
+import Sell from './assets/images/advertise.png';
 import userProfile from './assets/images/person_icon.png';
 import openDrawer from '../SideDrawer/openDrawer';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -29,14 +33,23 @@ const navLeftButton = iconsArray => {
     // backgroundColor: 'green'
   };
 };
-
+const tabBarIcon = (focused, tintColor) => {
+  return (
+    <Image
+      style={{ width: 50, height: 50 }}
+      source={require('./assets/images/advertise.png')}
+    />
+  );
+};
 const LoadTabs = () => {
   Promise.all([
     MaterialIcons.getImageSource('menu', 25),
     MaterialIcons.getImageSource('person', 25),
-    Icon.getImageSource('bars', 20, 'white'),
-    Icon.getImageSource('dollar', 20, 'white'),
-    Icon.getImageSource('search', 20, 'white')
+    MaterialIcons.getImageSource('dollar', 25),
+    MaterialIcons.getImageSource('search', 25)
+    // Icon.getImageSource('bars', 20, 'white'),
+    // Icon.getImageSource('dollar', 20, 'white'),
+    // Icon.getImageSource('search', 20, 'white')
     // Icon.getImageSource('export', 20, 'white')
   ]).then(iconsArray => {
     console.log('ICONS : ', iconsArray);
@@ -82,7 +95,7 @@ const LoadTabs = () => {
                                   icon: iconsArray[0],
                                   // icon: [navLeftButton(iconsArray)]
                                   color: '#FFF',
-                                  fixedWidth:500,
+                                  fixedWidth: 500,
                                   navigatorStyle: navStyle
 
                                   // onPress: ()=> openDrawer
@@ -113,19 +126,21 @@ const LoadTabs = () => {
                     ],
                     options: {
                       bottomTab: {
-                        text: 'Tab 1',
-                        icon: iconsArray[2],
+                        // text: 'Tab 2',
+                        icon: iconsArray[3],
+
+                        // icon: BlackPersonIcon,
                         iconColor: 'gray',
                         borderWidth: 2,
-                        selectedIconColor: '#3E7BE3',
-                        textColor: 'red',
-                        selectedTextColor: '#3E7BE3',
+                        // selectedIconColor: '#3E7BE3',
+                        selectedIconColor: 'purple',
+                        textColor: 'orange',
+                        // selectedTextColor: '#3E7BE3',
                         fontWeight: 'regular',
-                        testID: 'FIRST_TAB_BAR_BUTTON', // width: 4,
-                        translucent: false,
-                        // heigth: 10,  // size: 10, // navigatorStyle: navStyle, // iconColor: 'lightblue',
+                        testID: 'SECOND_TAB_BAR_BUTTON',
                         navigatorStyle: navStyle,
-                        navigatorButtons: [navLeftButton(iconsArray)]
+                        navigatorButtons: [navLeftButton(iconsArray)],
+                        translucent: false
                       }
                     }
                   }
@@ -173,20 +188,24 @@ const LoadTabs = () => {
                     },
                     options: {
                       bottomTab: {
-                        text: 'Tab 2',
-                        icon: iconsArray[3],
-
-                        // icon: BlackPersonIcon,
-                        iconColor: 'gray',
-                        borderWidth: 2,
-                        selectedIconColor: '#3E7BE3',
-                        textColor: 'red',
-                        selectedTextColor: '#3E7BE3',
+                        text: 'Sell now',
+                        // icon: iconsArray[2],
+                        icon: TestIcon,
+                        // iconColor: 'gray',
+                        marginTop: 20,
+                        borderColor: 'green',
+                        // selectedIconColor: '#3E7BE3',
+                        textColor: 'orange',
+                        selectedTextColor: 'purple',
                         fontWeight: 'regular',
-                        testID: 'SECOND_TAB_BAR_BUTTON',
-                        navigatorStyle: navStyle,
-                        navigatorButtons: [navLeftButton(iconsArray)],
-                        translucent: false
+                        fontSize: 14,
+                        testID: 'FIRST_TAB_BAR_BUTTON', // width: 4,
+                        translucent: false,
+                        // heigth: 10,
+                        //  size: 10, //
+                        navigatorStyle: navStyle, // iconColor: 'lightblue',
+
+                        navigatorButtons: [navLeftButton(iconsArray)]
                       }
                     }
                   }
@@ -199,15 +218,15 @@ const LoadTabs = () => {
                     },
                     options: {
                       bottomTab: {
-                        text: 'Tab 3',
+                        // text: 'Tab 3',
                         icon: iconsArray[1],
                         iconColor: 'gray',
                         borderWidth: 2,
                         borderColor: 'lightblue ',
                         borderRadius: 20,
-                        selectedIconColor: '#3E7BE3',
-                        textColor: 'red',
-                        selectedTextColor: '#3E7BE3', // fontFamily: 'Helvetica',
+                        selectedIconColor: 'purple',
+                        textColor: 'orange',
+                        // selectedTextColor: '#3E7BE3', // fontFamily: 'Helvetica',
                         fontWeight: 'regular',
                         testID: 'THIRD_TAB_BAR_BUTTON',
                         navigatorStyle: navStyle,
