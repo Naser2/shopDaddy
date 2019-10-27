@@ -7,6 +7,7 @@ import { requestLogin, registerUser, autoLogin, logOut } from './Action/action';
 import LoginIndex from '../Views/Login/index';
 
 import SignupComponent from '../Views/Signup/index.js';
+import UserProfileIndex from '../Views/Profile/Profile';
 import SideDrawerComponent from '../Views/SideDrawer/index';
 
 // import WelcomeComponent from './Views/Welcome';
@@ -47,12 +48,12 @@ export const SideDrawer = compose(
   )
 )(SideDrawerComponent);
 
-// export const Welcome = compose(
-//   connect(
-//     mapStateToProps,
-//     {
-//       authCheck
-
-//     }
-//   )
-// )(WelcomeComponent);
+export const UserProfile = compose(
+  connect(
+    mapStateToProps,
+    {
+      yourProps: 'naviguate to post a request, request..., Logout ',
+      logOut
+    }
+  )
+)(UserProfileIndex);
