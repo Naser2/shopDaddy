@@ -46,7 +46,7 @@ export default class ImageAdHeader extends Component {
           source={currentImg}
           style={
             this.props.background
-              ? [this.props.background, styles.background]
+              ? [styles.background, this.props.background]
               : styles.background
           }
           imageStyle={styles.logo}
@@ -73,16 +73,16 @@ export default class ImageAdHeader extends Component {
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    // flex: 1,
     // alignSelf: 'center',
     alignItems: 'center',
+    alignItems: 'flex-start',
     // paddingBottom: 40,
     marginTop: 10,
     // marginLeft: -60,
-    paddingHorizontal: 32,
+    // paddingHorizontal: 32
     // backgroundColor: Colors.lighter,
     // width: 400,
-    // height: 50
   },
   text: {
     fontSize: 34,
