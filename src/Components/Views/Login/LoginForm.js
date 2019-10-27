@@ -31,7 +31,7 @@ import {
 } from 'react-native';
 
 import ValidationRules from '../../../utils/forms/validationRules';
-import LoadTabs from '../Tabs/index';
+import LoadTabs from '../Tabs/index.js';
 
 import {
   getOrientation,
@@ -191,7 +191,7 @@ class LoginForm extends Component {
 
     return (
       <View
-        style={{ backgroundColor: '#ffff', width: '100%', flex: 1, padding: 0 }}
+        style={{ backgroundColor: '#ffff', flex: 1, width: '100%', padding: 0 }}
       >
         <Header
           androidStatusBarColor={commonColor.statusBarLight}
@@ -212,8 +212,8 @@ class LoginForm extends Component {
             </Title>
           </Body>
         </Header>
-        <Logo showLogin={this.props.showLogin} />
-        <BackgroundImage
+        {/* <Logo showLogin={this.props.showLogin} /> */}
+        {/* <BackgroundImage
           background={
             this.props.orientation === 'portrait'
               ? styles.imageStylePortrait
@@ -221,10 +221,10 @@ class LoginForm extends Component {
             // marginLeft: -50
           }
           imgSrc={this.images}
-        />
+        /> */}
         <Line style={{ backgroundColor: '#dff0ff' }} />
-        <View style={{ marginTop: '0%', width: deviceMeasures('width') }}>
-          <Text
+        {/* <View style={{ marginTop: '0%', width: deviceMeasures('width') }}> 
+        <Text
             style={{
               color: ' rgb(53, 120, 229)',
               backgroundColor: 'rgb(236, 243, 255)',
@@ -235,8 +235,8 @@ class LoginForm extends Component {
             }}
           >
             Loging and shop like a shop daddy!
-          </Text>
-        </View>
+          </Text> 
+        </View> */}
         <View style={{ marginTop: -20 }}>
           <Line
             style={{ backgroundColor: '#5d26de', height: 20, width: ' 120%' }}
