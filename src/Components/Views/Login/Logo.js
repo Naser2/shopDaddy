@@ -10,7 +10,7 @@ import {
   ScrollView,
   TextInput
 } from 'react-native';
-// import styles from '../Home/home/styles';
+import { deviceMeasures } from '../../../utils/misc';
 
 export default class Logo extends Component {
   state = {
@@ -37,7 +37,13 @@ export default class Logo extends Component {
   }
   render() {
     return (
-      <View>
+      <View
+        style={{
+          marginBottom: -10,
+          backgroundColor: '#609',
+          width: deviceMeasures('width')
+        }}
+      >
         <View
           style={
             this.props.orientation === 'portrait'
@@ -71,8 +77,9 @@ export default class Logo extends Component {
 
 const styles = StyleSheet.create({
   logoStylesPortrait: {
-    marginTop: 50,
-    flex: 1,
+    marginTop: deviceMeasures('height') / 2.34,
+    height: deviceMeasures('height') / 13.7,
+    // flex: 1,
     flexDirection: 'row',
     maxHeight: 100,
     alignSelf: 'center',
@@ -89,29 +96,31 @@ const styles = StyleSheet.create({
     maxHeight: 50,
     alignSelf: 'center'
   },
-  logoStyle: {
-    marginTop: 50,
+  // logoStyle: {
+  //   marginTop: 50,
 
-    flex: 1,
-    maxHeight: 100,
-    // backgroundColor: '#FFF',
-    // flexDirection: 'row',
-    // alignItems: 'center'
-    padding: 15
-  },
+  //   flex: 1,
+  //   maxHeight: 100,
+  //   // backgroundColor: '#FFF',
+  //   // flexDirection: 'row',
+  //   // alignItems: 'center'
+  //   padding: 15
+  // },
   shop: {
-    fontSize: 40,
+    fontSize: 36,
     // fontFamily: 'RobotoCondensed-Regular',
     fontFamily: 'RobotoCondensed-Bold',
     // color: '#555555',
-    color: 'rgb(199,146,234)',
-    color: 'rgb(178, 101, 230)',
-    color: 'rgb(157, 52, 227)'
+    color: 'rgb(199,146,234)'
+    // color: 'rgb(178, 101, 230)',
+    // color: 'rgb(157, 52, 227)'
+    // color: 'rgb(157, 52, 227)'
   },
   daddy: {
-    fontSize: 40,
+    fontSize: 36,
     // fontFamily: 'RobotoCondensed-Regular',
     fontFamily: 'RobotoCondensed-Bold',
     color: '#00ADA9'
+    // color: 'black'
   }
 });
