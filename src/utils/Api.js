@@ -1,21 +1,33 @@
 import request from './requests';
+import { LOGIN } from './misc';
 class Api {
   static loginUser(credentials) {
-    console.log(" Login User API works!!!!")
-    return request('/user_token', 'POST', { //Request made
-      body: JSON.stringify({ auth: credentials })
-    });
+    console.log(' Login User API works!!!!', credentials);
+    return request(
+      'POST',
+      {
+        data: {
+          email: credentials.email,
+          password: credentials.password,
+          returnSecureToken: true
+        }
+      }
+    ),
+      () => {
+        console.log('DATA: ', data);
+      };
   }
 
   static registerUser(credentials) {
-    console.log("Got called from Register Action: ", credentials)
-    return request('/users', 'POST', {
+    console.log('Got called from Register Action: ', credentials);
+    return request('POST', {
       body: JSON.stringify({ user: credentials })
     });
   }
 
-  static getUser() { // Login Api Path /Url
-    return request('/users/get_current_user', 'GET_AUTH');
+  static getUser() {
+    // Login Api Path /Url
+    return request('GET_AUTH');
   }
 
   static createAddress(address, myAlert) {
