@@ -1,26 +1,40 @@
-const stack = {
-  children: [
-    {
-      component: {
-        id: 'component1', // Optional, Auto generated if empty
-        name: 'Your registered component name',
-        options: {
-          
-        },
-        passProps: {
-          text: 'This text will be available in your component.props'
+Navigation.setRoot({
+  root: {
+    bottomTabs: {
+      children: [{
+        stack: {
+          children: [{
+            component: {
+              name: 'example.FirstTabScreen',
+              passProps: {
+                text: 'This is tab 1'
+              }
+            }
+          }],
+          options: {
+            bottomTab: {
+              text: 'Tab 1',
+              icon: require('../images/one.png'),
+              testID: 'FIRST_TAB_BAR_BUTTON'
+            }
+          }
         }
-      }
-    },
-    {
-      component: {}
-    }
-  ],
-  options: {
-    topBar: {
-      visible: true,
-      leftButtons: [{ id: 'back', icon: { uri: 'back' } }],
-      rightButtons: [{ id: 'search', icon: { uri: 'search' } }]
+      },
+      {
+        component: {
+          name: 'navigation.playground.TextScreen',
+          passProps: {
+            text: 'This is tab 2'
+          },
+          options: {
+            bottomTab: {
+              text: 'Tab 2',
+              icon: require('../images/two.png'),
+              testID: 'SECOND_TAB_BAR_BUTTON'
+            }
+          }
+        }
+      }]
     }
   }
-};
+});
